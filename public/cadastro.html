@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MallHub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <script src="js/cadastro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">
+            <img width="150px" src="img/logo.svg" alt="Logo do mallhub">
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <img class="imagemroof" src="img/roofLogin.png" alt="Foto de um shopping">
+            <div class="form">
+                <div id="etapa0">
+                    <h1>Cadastre-se</h1>
+                    <h3>Preencha as informações do seu shopping</h3>
+
+                    <span id="labelSpanEtapa0" class="labelSpan" style="display: none;">Por favor preencha os campos
+                        abaixo</span>
+                    <span id="validarcnpjSpan" class="labelSpan" style="display: none;">CNPJ já existente</span>
+                    <span id="cnpjInvalidoSpan" class="labelSpan" style="display: none;">Cnpj precisa ser válido!</span>
+
+                    <label for="inputCnpj">Cnpj</label>
+                    <input id="inputCnpj" type="number" placeholder="00.000.000/0000-00" maxlength="14"
+                        onkeyup="validarcnpj()">
+                    <br>
+                    <div class="containerSpan">
+                        <a href="login.html">Já possui uma conta?</a>
+                    </div>
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa1" style="display: none;">
+                    <h1>Cadastre-se</h1>
+                    <h3>Preencha as informações do seu shopping</h3>
+                    <span id="labelSpanEtapa1" class="labelSpan" style="display: none;">Por favor preencha os campos
+                        abaixo</span>
+
+                    <label for="inputRazaoSocial">Razão Social</label>
+                    <input id="inputRazaoSocial">
+                    <br>
+                    <label for="inputfantasia">Nome fantasia</label>
+                    <input id="inputfantasia">
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa2" style="display: none;">
+                    <h1>Cadastre-se</h1>
+                    <h3>Preencha as informações do seu shopping</h3>
+                    <span id="labelSpanEtapa2" class="labelSpan" style="display: none;">Por favor preencha os campos
+                        abaixo</span>
+
+                    <label for="inputcep">CEP</label>
+                    <input id="inputcep" type="number" maxlength="8" onblur="pesquisacep(this.value);">
+                    <br>
+
+                    <div class="inputCouple">
+                        <div>
+                            <label for="inputcidade">Cidade</label>
+                            <input id="inputcidade">
+                        </div>
+                        <div>
+                            <label for="inputestado">Estado</label>
+                            <select id="inputestado">
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                                <option value="EX">Estrangeiro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="inputCouple">
+                        <div>
+                            <label for="inputlogradouro">Logradouro</label>
+                            <input id="inputlogradouro">
+                        </div>
+                        <div>
+                            <label for="inputnumero">Numero</label>
+                            <input id="inputnumero" type="number">
+                        </div>
+                    </div>
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa3" style="display: none;">
+                    <h1>Cadastre-se</h1>
+                    <h3>Preencha as informações da sua conta</h3>
+                    <span id="labelSpanEtapa3" class="labelSpan" style="display: none;">Por favor preencha os campos
+                        abaixo</span>
+                    <label for="inputNome">Nome</label>
+                    <input id="inputNome">
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa4" style="display: none;">
+                    <h1>Cadastre-se</h1>
+                    <h3>Preencha as informações da sua conta</h3>
+                    <span id="labelSpanEtapa4" class="labelSpan" style="display: none;">Por favor preencha os campos
+                        abaixo</span>
+                    <span id="labelSpanSenha" class="labelSpan" style="display: none;">senha e confirmar senhas não
+                        correspondem</span>
+                    <span id="labelSpanEmail" class="labelSpan" style="display: none;">Email inválido!</span>
+                    <span id="validarEmailSpan" class="labelSpan" style="display: none;">Email já existente</span>
+                    <span id="labelSpanQtdsenha" class="labelSpan" style="display: none;">Senha tem que ter no mínimo 8
+                        caracteres</span>
+
+                    <label for="inputEmail">Email</label>
+                    <input id="inputEmail" placeholder="usuario@gmail.com" onkeyup="validarEmail()">
+                    <br>
+                    <label for="inputSenha">Senha</label>
+                    <input id="inputSenha" minlength="8" type="password">
+                    <br>
+                    <label for="inputConfirmarSenha">Confirmar senha</label>
+                    <input id="inputConfirmarSenha" minlength="8" type="password">
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa5" style="display: none;">
+                    <h1>Cadastre-se</h1>
+                    <h3>Preencha as informações da sua conta</h3>
+                    <span id="labelSpanEtapa5" class="labelSpan" style="display: none;">Por favor preencha os campos
+                        abaixo</span>
+                    <span id="validaTelefone" class="labelSpan" style="display: none;">Telefone precisa ser
+                        válido</span>
+
+                    <label for="inputTel">Telefone</label>
+                    <input id="inputTel" placeholder="(11) 99999-9999" type="number" maxlength="11">
+                    <br>
+                    <button onclick="cadastrar()">Cadastre-se</button>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

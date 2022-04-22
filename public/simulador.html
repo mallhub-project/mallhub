@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MallHub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/simulador.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <script src="js/simulador.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">
+            <img width="150px" src="img/logo.svg" alt="Logo do mallhub">
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <img class="imagemroof" src="https://images.pexels.com/photos/6434779/pexels-photo-6434779.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Foto de um shopping">
+            <div class="form">
+                <div id="etapa0">
+                    <h1>Simule aqui!</h1>
+                    <label for="inputNome">Primeiro conte o nome do seu shopping</label>
+                    <input id="inputNome" placeholder="Ex: Mallhub">
+                    <br>
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa1" style="display: none;">
+                    <h1>Simule aqui!</h1>
+                    <label for="inputLucro">Insira seu lucro anual</label>
+                    <input id="inputLucro" type="number" placeholder="R$0,00">
+                    <br>
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa2" style="display: none;">
+                    <h1>Simule aqui!</h1>
+                    <label for="inputmetros">Quantos m² o seu shopping tem no total?</label>
+                    <input id="inputmetros" type="number" placeholder="0m²">
+                    <br>
+                    <br>
+                    <button onclick="etapaIncrement()">Próximo</button>
+                </div>
+                <div id="etapa3" style="display: none;">
+                    <h1>Simule aqui!</h1>
+                    <label for="inputVacancia">Quantos m² do seu shopping não possui lojas abertas?</label>
+                    <input type="number" id="inputVacancia" placeholder="0m²">
+                    <br>
+                    <br>
+                    <button onclick="etapaIncrement()">Simular</button>
+                </div>
+                <div id="etapaResultado" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

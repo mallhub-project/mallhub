@@ -1,0 +1,361 @@
+.sectionOne {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url('../img/background.png');
+    background-size: cover;
+}
+
+.sectionOne .banner {
+    width: 100vw;
+    position: absolute;
+    margin-top: -100px;
+    margin-left: 0;
+}
+
+.sectionOne p {
+    font-family: 'Inter';
+    color: #000;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.sectionOne .navbar {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    z-index: 1;
+}
+
+.sectionOne .navbar a {
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    color: black;
+    margin: 20px;
+}
+
+.sectionOne .navbar .buttonLogin {
+    width: 162px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: #000;
+    border: 0;
+    font-family: 'Poppins';
+    font-size: 16px;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.sectionOne .navbar .buttonLogin:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.contentCenter {
+    margin: auto auto auto 10%;
+    z-index: 1;
+}
+
+/* SESSÃO SOBRE NÓS */
+
+#sobre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#F0F0F0 ;
+    padding: 28px 0;
+}
+
+#sobre .container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.texto_sobre {
+    width: 570px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.texto_sobre div{
+    margin-bottom: 63px;
+}
+
+.texto_sobre h2{
+    font-family: 'Inter';
+    font-size: 22px;
+    font-weight: 600;   
+    margin-bottom: 30px;
+}
+
+.texto_sobre p { 
+    font-family: 'Inter';
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.imagem_sobre img {
+    max-width: 400px;
+}
+
+/*  SESSÃO SOBRE O PROJETO  */
+
+.sectionConhecaoProjeto {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conhecaProjeto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+} 
+
+.conhecaProjeto div{
+    width: 602px;      
+    margin-left: 147px;
+}
+
+.conhecaProjeto h2, .chamadaSimulador h2 {
+    font-family: 'Inter';
+    font-size: 25px;
+    font-weight: bold;
+    margin: 33px 0 ; 
+}
+
+.conhecaProjeto p {
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 400;       
+}
+
+.chamadaSimulador {
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+.chamadaSimulador div {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chamadaSimulador button {
+    width: 162px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: #000;
+    border: 0;
+    font-family: 'Poppins';
+    font-size: 16px;
+    color: #FFF;
+    cursor: pointer;
+}
+
+/*EQUIPE*/
+
+.containerEquipe {
+    height: 60vh;
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #F0F0F0;
+}
+
+.containerEquipe h2 {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 25px;
+    margin-left: 147px;
+}
+
+.container_cards {
+    width: 904px;
+    margin-top: 53px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 147px;
+}
+
+.container_cards p {
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 27px;
+}
+
+/*  SESSÃO CONTATO    */
+
+.containerContato {
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Inter';
+    padding: 50px 0;
+}
+
+.containerContato h1 {
+    font-weight: 600;
+    font-size: 30px;
+    margin-bottom: 37px;
+}
+
+.containerContato p {
+    font-size: 20px;
+}
+
+.containerContato button {
+    background-color: #000;
+    color: #FFF;
+    border-radius: 13px;
+    height: 30px;
+    width: 219px;
+    border: 0;
+    cursor: pointer;
+    margin-top: 60px;
+
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputs input {
+    width: 420px;
+    height: 35px;
+    outline: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    border: 1px solid #000;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 15px;
+}
+
+.inputs textarea {
+    width: 420px;
+    height: 100px;
+    margin-top: 25px; 
+    border-radius: 30px;
+    padding: 0px 0px 35px 20px;
+    outline: none;
+    border: 1px solid #000;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    resize: none;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+/*RODAPÉ*/
+.footer {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    background-color: #F0F0F0;
+}
+.footer .container {
+    display: flex;
+    width: 90vw;
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    font-family: 'Inter';
+    font-size: 16px;
+}
+
+.footer span:not(.footer span:first-child) {
+    margin: 0 40px;
+}
+
+/*  RESET CSS   */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, b, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body {
+    overflow-x: hidden;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #aeaeae;
+    border-radius: 10px;
+}
