@@ -142,8 +142,13 @@ input[type=number] {
     color: white;
     font-family: 'Inter';
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 400;
     margin: 0 auto;
+}
+
+.form button:hover{
+    background-color: rgba(0, 0, 0, 0.863);
+    color: rgba(255, 255, 255, 0.615);
 }
 
 .form #etapaResultado {

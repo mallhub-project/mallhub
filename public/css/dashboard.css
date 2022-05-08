@@ -1,6 +1,554 @@
-.navbar{
-    height: 590px;
-    width: 233px;
-    flex-direction: column;
+body {
+    margin: 0%;
+    font-family: 'Inter';
+    font-weight: bold;
+    overflow-x: hidden;
+}
+
+.container {
     display: flex;
+    height: 100vh;
+    width: 93%;
+    margin: 0 auto;
+}
+
+/*  navbar  */
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-top: 25px;
+}
+
+#inicioNavbar {
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+}
+
+.inicioIcon {
+    filter: invert(100%);
+}
+
+.inicioIcon, .dispositivoIcon, .perfilIcon, .acessoIcon {
+    margin-left: 10px;
+}
+
+.navbar .shoping {
+    font-family: sans-serif;
+}
+
+.navbar .direita {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 336px;
+}
+
+.sino {
+    display: flex;
+    position: relative;
+    display: flex;
+    justify-content: end;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+.modalAlerta {
+    position: absolute;
+    width: 350px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 30px;
+    border: 1px solid #cfcfcf;
+    overflow-y: auto;
+}
+
+.alertaItem {
+    width: 100%;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.alertaItem div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    color: #cfcfcf;
+    font-size: 15px;
+}
+
+.alertaItem div:last-child span {
+    padding: 5px;
+}
+
+.alertaItem:last-child {
+    border: 0;
+}
+
+.navAlerta {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.navAlerta button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.notificaçao {
+    background-color: red;
+    border-radius: 100%;
+    width: 13px;
+    height: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    cursor: pointer;
+}
+
+.mallhubImage img {
+    height: 30px;
+}
+
+/*  div meio  */
+.meio {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.meio::-webkit-scrollbar { 
+	display: none;
+}
+
+/*   navbar lateral   */
+.painel {
+    width: 300px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+    padding-top: 40px;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
+
+.painel .conteudo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: auto;
+}
+
+.painel .conteudo div {
+    display: flex;
+    margin: 10px;
+    padding: 5px;
+}
+
+.loggout {
+   display: flex;
+   padding: 10px;
+}
+
+.painel img {
+    margin-right: 15px;
+}
+
+/*  GRAFICO PAG INICIAL */
+.metricas {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.d_ativos {
+    font-size: 16px;
+    height: 100%;
+    width: 29%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.d_alerta {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 39%;
+    background-color: #FF4242;
+    border-radius: 10px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.d_ideais {
+    font-size: 16px;
+    height: 100%;
+    width: 29%;
+    background-color: #128400;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.d_alerta div:last-child, .d_ideais div:last-child, .d_ativos div:last-child {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.containerGrafico {
+    background-color: rgb(31, 31, 31);
+    width: 100%;
+    border-radius: 15px;
+    color: white;
+    padding: 10px 0;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.tituloGraficos {
+    width: 90%;
+    font-size: 20px;
+    font-weight: 400;
+    padding-left: 45px;
+}
+
+.filtros {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.filtros div {
+    display: flex;
+    align-items: center;
+}
+
+.filtros select {
+    width: 202px;
+    height: 30px;
+    margin-left: 7px;
+    padding-left: 10px;
+    border-radius: 7px;
+    background-color: rgb(54, 53, 53);
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    outline: none;
+}
+
+.containerGraficoChart {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 10px auto 0 auto;
+}
+
+.grafico {
+    width: 100%;
+}
+
+/*  RODAPÉ    */
+.rodape {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    width: 100vw;
+    height: 45px;
+    margin-top: 20px;
+}
+
+.lista {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lista .direita {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.nomes {
+    color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/*Tela de Dispositivos Inicio*/
+.dash_topo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.dash_h1 {
+    color: #000;
+    margin: 0;
+    font-size: 25px;
+}
+
+.dash_topo button {
+    font-weight: 700;
+    background-color: #000;
+    border-radius: 15px;
+    border-color: #000;
+    color: #fff;
+    height: 40px;
+    width: 233px;
+    cursor: pointer;
+}
+
+.dash_novo_dispositivo {
+    border: #d7d7d7 1px solid;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 30px;
+}
+
+.dash_novo_dispositivo:last-child {
+    margin-bottom: 30px;
+}
+
+.dash_novo_dispositivo label {
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.dash_p {
+    margin: 0 20px;
+    padding-top: 10px;
+    color: black;
+}
+
+.dash_p span {
+    font-weight: 400;
+}
+
+.button_save {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button_save button {
+    background-color: #000;
+    border-radius: 15px;
+    border-color: #000;
+    color: #fff;
+    height: 40px;
+    width: 160px;
+    cursor: pointer;
+}
+
+.dash_item {
+    display: flex;
+    justify-content: space-between;
+    border: #d7d7d7 1px solid;
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.dash_item div {
+    display: flex;
+}
+
+.dash_item button {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    margin: 0 5px;
+}
+
+.dash_input_info {
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+    border: #d7d7d7 1px solid;
+    border-radius: 15px;
+    margin: 10px 0 20px 0;
+    padding: 10px;
+    width: 98%;
+}
+
+.dash_perfil .dash_novo_dispositivo .button_save button {
+    margin-top: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #aeaeae;
+    border-radius: 10px;
+}
+
+.acessosConta {
+    color: white;
+    margin-bottom: 30px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.dash_esquerda_acesso {
+    width: 100%;
+    border-radius: 15px;
+    color: white;
+    height: 80%;
+}
+
+.textoAcesso {
+    color: black;
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3%;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.btAcessos {
+    background-color: black;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    height: 50px;
+    width: 180px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dash_esquerda_registro {
+    border: 2px solid rgb(232, 232, 232);
+    width: 90%;
+    border-radius: 15px;
+    color: white;
+    height: 80%;
+    margin-top: 4%;
+}
+
+.inputsAcesso {
+    color: black;
+    margin-left: 4%;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+}
+
+.acessoEmail {
+    margin-top: 2%;
+}
+
+.acessoFone {
+    margin-top: 2%;
+}
+
+.acessoSenha {
+    margin-top: 2%;
+}
+
+.acessoCargo {
+    margin-top: 2%;
+}
+
+.btCadastrarAcesso {
+    background-color: #000;
+    border-radius: 15px;
+    border-color: #000;
+    color: #fff;
+    height: 40px;
+    width: 160px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.btCadastroAcesso {
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+}
+
+.styleSenha {
+    margin-left: 6%;
+    border-radius: 10px;
+    border: 1px solid black;
+    opacity: 20%;
+    width: 600px;
+}
+
+.styleEmail {
+    margin-left: 7%;
+    border-radius: 10px;
+    border: 1px solid black;
+    opacity: 20%;
+    width: 600px;
+}
+
+.styleNome {
+    margin-left: 6.5%;
+    border-radius: 10px;
+    border: 1px solid black;
+    opacity: 20%;
+    width: 600px;
+}
+
+.styleFone {
+    margin-left: 4%;
+    border-radius: 10px;
+    border: 1px solid black;
+    opacity: 20%;
+    width: 600px;
+}
+
+.styleCargo {
+    margin-left: 6%;
+    border-radius: 10px;
+    border: 1px solid black;
+    opacity: 20%;
+    width: 600px;
 }

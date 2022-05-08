@@ -1,9 +1,8 @@
 var database = require("../database/config")
 
 function entrar(email, senha) {
-    // A função recebe parametros que são os dados da controller.js e realiza o insert no banco
     var instrucao = `
-        SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT usuario.id_usuario, usuario.nome, usuario.cpf, usuario.email, usuario.telefone, usuario.cargo, usuario.fk_superior, usuario.fk_shopping, shopping.nome_fantasia, shopping.razao_social, shopping.cnpj, shopping.cep, shopping.cidade, shopping.estado, shopping.logradouro, shopping.numero FROM usuario inner join shopping on usuario.fk_shopping = shopping.id_shopping WHERE email = '${email}' AND senha = '${senha}';
     `;
 
     return database.executar(instrucao);
@@ -33,7 +32,6 @@ async function cadastroUsuario(nome, email, tellphone, password, cnpj) {
 }
 
 function listar() {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucao = `
         SELECT * FROM usuario;
     `;
@@ -42,15 +40,11 @@ function listar() {
 }
 
 function validaremail(email) {
-    console.log('validei o email')
-    console.log('com o email', email)
     var instrucao = `SELECT * FROM usuario WHERE email = '${email}';`;
     return database.executar(instrucao);
 }
 
 function validarcnpj(cnpj) {
-    console.log('validei o cnpj')
-    console.log('com o cnpj', cnpj)
     var instrucao = `SELECT * FROM shopping WHERE cnpj = '${cnpj}';`;
     return database.executar(instrucao);
 }

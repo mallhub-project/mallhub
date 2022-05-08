@@ -150,10 +150,14 @@ input[type=number] {
     color: white;
     font-family: 'Inter';
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 auto;
 }
 
+    .form button:hover{
+    background-color: rgba(0, 0, 0, 0.863);
+    color: rgba(255, 255, 255, 0.615);
+    }
 
 /*  RESET CSS   */
 html, body, div, span, applet, object, iframe,
@@ -205,6 +209,16 @@ body {
 
 * {
     scroll-behavior: smooth;
+}
+
+.etapas{
+    font-size: 20px;
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+    font-family: 'Inter';
+    font-weight: 300;
+    padding-bottom: 15px;
 }
 
 ::-webkit-scrollbar {

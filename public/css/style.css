@@ -42,6 +42,11 @@
     margin: 20px;
 }
 
+.sectionOne .navbar a:hover{
+    color: rgba(0, 0, 0, 0.623);
+    transition: 0.3s all;
+}
+
 .sectionOne .navbar .buttonLogin {
     width: 162px;
     height: 35px;
@@ -55,7 +60,11 @@
 }
 
 .sectionOne .navbar .buttonLogin:hover {
-    background-color: rgb(20, 20, 20);
+    background-color: rgba(0, 0, 0, 0.863);
+    color: rgba(255, 255, 255, 0.615);
+    /*background-color: #565151;
+    color: rgb(255, 255, 255);*/
+    transition: 0.3s all;
 }
 
 .contentCenter {
@@ -168,6 +177,11 @@
     cursor: pointer;
 }
 
+.chamadaSimulador button:hover{
+    background-color: rgba(0, 0, 0, 0.863);
+    color: rgba(255, 255, 255, 0.615);
+}
+
 /*EQUIPE*/
 
 .containerEquipe {
@@ -233,7 +247,12 @@
 
     font-family: 'Inter';
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
+}
+
+.containerContato button:hover{
+    background-color: rgba(0, 0, 0, 0.863);
+    color: rgba(255, 255, 255, 0.615);
 }
 
 .inputs {

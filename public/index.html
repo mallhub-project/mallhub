@@ -30,11 +30,10 @@
                 <img src="img/logo.svg" alt="Logo do mallhub">
             </div>
             <div>
-                <a href="#inicio">Início</a>
                 <a href="#sobre">Sobre nós</a>
                 <a href="#simuleAqui">Simulador</a>
                 <a href="#contato">Contate-nos</a>
-
+                <a href="cadastro.html">Cadastre-se</a>
                 <a href="login.html">
                     <button class="buttonLogin">Entrar</button>
                 </a>
@@ -144,18 +143,26 @@
         </div>
     </section>
     <section id="contato">
-        <div class="containerContato">
+        <div class="">
+        <form 
+        class="containerContato" 
+        action="https://formsubmit.co/Mallhub.shoppings@gmail.com" 
+        method="POST" 
+        target="_blank"
+        >
             <div>
                 <h1>Gostou da ideia?</h1>
                 <p>Entre em contato conosco e atraia mais <br> clientes para seu shoping</p>
-                <button>Enviar mensagem</button>
+                <button type="submit" required>Enviar mensagem</button>
             </div>
             <div class="inputs">
-                <input placeholder="Nome">
-                <input placeholder="Email">
-                <textarea placeholder="Mensagem"></textarea>
+                <input type="hidden" name="_next" value="http://localhost:3333/index.html">
+                <input type="hidden" name="_template" value="box">
+                <input type="text" name="name" placeholder="Nome" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea placeholder="Mensagem" name="message" required></textarea>
             </div>
-        </div>
+        </form>
     </section>
 
     <footer class="footer">

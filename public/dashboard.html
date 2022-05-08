@@ -1,22 +1,504 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../public/favicon.png" type="image/x-icon">
-    <title>Mallhub</title>
-    <link rel="stylesheet" href="css/dashboard.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <title> MallHub</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <script src="js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 </head>
-<body>
-    <div class="navbar">
-        <div class="container"></div>
-        <img src="img/logo.svg" alt="background white">
-        <a href="#inicio">Início</a>
-        <button onclick="dispositivos()">Dispositivos</button>
-        <button onclick="perfil()">Perfil</button>
-        <button onclick="config()">Configurações</button>
-        <button onclick="logout()">Log Out</button>
+
+<body onload="validarSessao()">
+  <div class="container">
+    <div class="painel">
+      <div class="conteudo">
+        <div class=" mallhubImage"><img src="img/imgens-dashboard/f_mallhub.svg" alt=""></div>
+        <div onclick="Inicio()" id="inicioNavbar">
+          <img class="inicioIcon" id="inicioIcon" src="img/imgens-dashboard/f_inicio.svg" alt="Inicio">
+          <div style="cursor: pointer;">Inicio</div>
+        </div>
+        <div onclick="Dispositivos()" id="dispositivoNavbar">
+          <img class="dispositivoIcon" id="dispositivoIcon" src="img/imgens-dashboard/f_dispositivos.svg"
+            alt="Dispositivos">
+          <div style="cursor: pointer;">Dispositivos</div>
+        </div>
+        <div onclick="Perfil()" id="perfilNavbar">
+          <img class="perfilIcon" id="perfilIcon" src="img/imgens-dashboard/f_perfil.svg" alt="Perfil">
+          <div style="cursor: pointer;">Perfil</div>
+        </div>
+        <div onclick="Acessos()" id="acessosNavbar">
+          <img class="acessoIcon" id="acessoIcon" src="img/imgens-dashboard/f_acessos.svg" alt="Acessos">
+          <div style="cursor: pointer;">Acessos</div>
+        </div>
+      </div>
+      <div onclick="loggout()" class="loggout">
+        <img src="img/imgens-dashboard/f_logout.svg" alt="Log Out">
+        <div style="cursor: pointer;">Log Out</div>
+      </div>
     </div>
+
+    <div class="meio">
+      <div class="navbar">
+        <div class=" direita">
+          <div class="sino">
+            <img onclick="showAlerta()" src="img/imgens-dashboard/f_notificaçao.svg" alt="Ver alertas">
+            <div onclick="showAlerta()" class="notificaçao">2</div>
+
+            <div id="idShowAlerta" class="modalAlerta" style="display: none;">
+              <div class="navAlerta">
+                <button onclick="hideAlerta()">X</button>
+              </div>
+              <div class="alertaItem">
+                <p>Cuidado, seu dispositivo Ala A, B está em perigo!</p>
+                <div>
+                  <span>23/04/2022</span>
+                  <span>13:00</span>
+                </div>
+              </div>
+              <div class="alertaItem">
+                <p>Cuidado, seu dispositivo Ala A, B está em perigo!</p>
+                <div>
+                  <span>23/04/2022</span>
+                  <span>13:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="shoping" id="nomeShopping"></div>
+          <div><img src="img/imgens-dashboard/f_shoping.svg" alt=""></div>
+        </div>
+      </div>
+
+      <div>
+        <div id="divInicio">
+          <div class="metricas">
+            <div class="d_ativos">
+              <div>Dispositivos Ativos:<span>10</span></div>
+              <div>(Dispositivos ativos no sistema)</div>
+            </div>
+            <div class="d_alerta">
+              <div>Dispositivos Em Alerta:<span>3</span></div>
+              <div>(Abaixo da média estipulada)</div>
+            </div>
+            <div class="d_ideais">
+              <div>Dispositivos Ideais:<span>7</span></div>
+              <div>(Acima da média estipulada)</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="containerGrafico">
+              <div class="tituloGraficos"> 
+                <p>Perspectiva panorâmica</p>
+              </div>
+              <div class="filtros">
+                <div>
+                  <p>Todos</p>
+                  <select class="select" id="filtroTodos" onchange="trocarDispositivos()">
+                    <option value="dispositivos">Dispositivos</option>
+                    <option value="setores">Setores</option>
+                  </select>
+                </div>
+                <div>
+                  <p>Filtrar Por:</p>
+                  <select class="select" id="filtro">
+                    <option value="todos">Janeiro</option>
+                    <option value="todos">Fevereiro</option>
+                    <option value="todos">Março</option>
+                    <option value="todos">Abril</option>
+                    <option value="todos">Maio</option>
+                    <option value="todos">Junho</option>
+                    <option value="todos">Julho</option>
+                    <option value="todos">Agosto</option>
+                    <option value="todos">Setembro</option>
+                    <option value="todos">Outubro</option>
+                    <option value="todos">Novembro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="containerGraficoChart">
+                <div class="grafico">
+                  <div id="graficoTodosDispositivos">
+                    <canvas id="todosDispositivos" class="canvas1"></canvas>
+                  </div>
+                  <div id="graficoTodosSetores" style="display: none;">
+                    <canvas id="porSetores" class="canvas1"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="containerGrafico">
+              <div id="graficoPorDispositivos">
+                <div class="tituloGraficos"> 
+                  <p>Perspectiva Individual por dispositivo</p>
+                </div>
+                <div class="filtros">
+                  <div>
+                    <p>Dispositivo:</p>
+                    <select class="select" id="alas">
+                      <option value="">D1</option>
+                      <option value="">D2</option>
+                      <option value="">D3</option>
+                      <option value="">D4</option>
+                      <option value="">D5</option>
+                      <option value="">D6</option>
+                      <option value="">D7</option>
+                      <option value="">D8</option>
+                      <option value="">D9</option>
+                      <option value="">D10</option>
+                    </select>
+                  </div>
+                  <div>
+                    <p>Filtrar Por:</p>
+                    <select class="select" id="filtro">
+                      <option value="todos">Mês</option>
+                      <option value="todos">Dia</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="containerGraficoChart">
+                  <div class="grafico">
+                    <canvas id="porDispositivos" class="canvas1"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div id="graficoPorSetor" style="display: none;">
+                <div class="tituloGraficos"> 
+                  <p>Perspectiva Individual por setor</p>
+                </div>
+                <div class="filtros">
+                  <div>
+                    <p>Setores:</p>
+                    <select class="select" id="alas">
+                      <option>Alimentício</option>
+                      <option>Entretenimento</option>
+                      <option>Arte e cultura</option>
+                      <option>Lojistico</option>
+                      <option>Moda</option>
+                    </select>
+                  </div>
+                  <div>
+                    <p>Filtrar Por:</p>
+                    <select class="select" id="filtro">
+                      <option value="todos">Mês</option>
+                      <option value="todos">Dia</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="containerGraficoChart">
+                  <div class="grafico">
+                    <canvas id="variacaoPorSetor" class="canvas1"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="divDispositivos" class="dash_dispositivos" style="display: none;">
+          <div class="dash_topo">
+            <h1 class="dash_h1">Seus Dispositivos</h1>
+            <button onclick="novoDispositivo()">Novo Dispositivo</button>
+          </div>
+
+          <div class="dash_item">
+            <div>
+              <p class="dash_p">Dispositivo Renner</p>
+            </div>
+            <div>
+              <button onclick="editDispositivo()">
+                <img src="img/editar.svg">
+              </button>
+              <button onclick="deleteDispositivo()">
+                <img src="img/lixeira.svg">
+              </button>
+            </div>
+          </div>
+          <div class="dash_item">
+            <div>
+              <p class="dash_p">Dispositivo C&A</p>
+            </div>
+            <div>
+              <button onclick="editDispositivo()">
+                <img src="img/editar.svg">
+              </button>
+              <button onclick="deleteDispositivo()">
+                <img src="img/lixeira.svg">
+              </button>
+            </div>
+          </div>
+          <div class="dash_item">
+            <div>
+              <p class="dash_p">Dispositivo Caedu</p>
+            </div>
+            <div>
+              <button onclick="editDispositivo()">
+                <img src="img/editar.svg">
+              </button>
+              <button onclick="deleteDispositivo()">
+                <img src="img/lixeira.svg">
+              </button>
+            </div>
+          </div>
+          <div class="dash_item">
+            <div>
+              <p class="dash_p">Dispositivo Zara</p>
+            </div>
+            <div>
+              <button onclick="editDispositivo()">
+                <img src="img/editar.svg">
+              </button>
+              <button onclick="deleteDispositivo()">
+                <img src="img/lixeira.svg">
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="divPerfil" style="display: none;">
+          <div class="dash_perfil">
+            <div class="dash_topo">
+              <h1 class="dash_h1">Informações do shopping</h1>
+            </div>
+            <div class="dash_novo_dispositivo">
+              <label for="cnpjPerfil">CNPJ</label>
+              <input class="dash_input_info" id="cnpjPerfil" placeholder="CNPJ">
+              <label for="fantasyNamePerfil">Nome fantasia</label>
+              <input class="dash_input_info" id="fantasyNamePerfil" placeholder="Nome Fantasia">
+              <label for="razaoSocialPerfil">Razão social</label>
+              <input class="dash_input_info" id="razaoSocialPerfil" placeholder="Razão Social">
+              <div class="button_save">
+                <button onclick="salvarShopping()">Salvar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash_perfil">
+            <div class="dash_topo">
+              <h1 class="dash_h1">Informações do usuario</h1>
+            </div>
+            <div class="dash_novo_dispositivo">
+              <label for="nomePerfil">Nome</label>
+              <input class="dash_input_info" id="nomePerfil" placeholder="Nome">
+              <label for="cpfPerfil">CPF</label>
+              <input class="dash_input_info" id="cpfPerfil" placeholder="CPF">
+              <label for="emailPerfil">Email</label>
+              <input class="dash_input_info" disabled id="emailPerfil" placeholder="Email">
+              <label for="telefonePerfil">Telefone</label>
+              <input class="dash_input_info" id="telefonePerfil" placeholder="Telefone">
+              <label for="cargoPerfil">Cargo</label>
+              <input class="dash_input_info" id="cargoPerfil" placeholder="Cargo">
+              <div class="button_save">
+                <button onclick="salvarUsuario()">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="divAcessos" style="display: none;">
+          <div class="dashs">
+            <div class="dash_esquerda_acesso">
+              <div class="dash_topo">
+                <div class="dash_h1">Novo acesso</div>
+                <div>
+                  <button class="btAcessos" onclick="showModalNewUser()">Novo Acesso</button>
+                </div>
+              </div>
+              <div>
+                <div class="dash_item">
+                  <div>
+                    <p class="dash_p">Nome: <span>Naomi Lemman</span></p>
+                    <p class="dash_p">Nivel: <span>Admin</span></p>
+                  </div>
+                  <div>
+                    <button onclick="editDispositivo()">
+                      <img src="img/editar.svg">
+                    </button>
+                    <button onclick="deleteDispositivo()">
+                      <img src="img/lixeira.svg">
+                    </button>
+                  </div>
+                </div>
+
+                <div class="dash_item">
+                  <div>
+                    <p class="dash_p">Nome: <span>Victor Lopes</span></p>
+                    <p class="dash_p">Nivel: <span>Usuario</span></p>
+                  </div>
+                  <div>
+                    <button onclick="editDispositivo()">
+                      <img src="img/editar.svg">
+                    </button>
+                    <button onclick="deleteDispositivo()">
+                      <img src="img/lixeira.svg">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
+<script>
+  const labelTodosDispositivos = [
+    'D1',
+    'D2',
+    'D3',
+    'D4',
+    'D5',
+    'D6',
+    'D7',
+    'D8',
+    'D9',
+    'D10'
+  ];
+
+  const labelPorDispositivos = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+  ];
+
+  const labelPorSetores = [
+    'Alimentício',
+    'Entretenimento',
+    'Arte e cultura',
+    'Lojistico',
+    'Moda'
+  ];
+
+  const labelVariacaoPorSetor = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+  ]
+
+  const dataTodosDispositivos = {
+    labels: labelTodosDispositivos,
+    datasets: [
+      {
+        label: 'Movimento ',
+        backgroundColor: ['white', 'white', 'white', '#FF7575', 'white', 'white', '#FF7575', '#FF7575', 'white', 'white'],
+        borderColor: 'white',
+        data: ['25000', '10000', '15000', '3500', '12600', '17900', '2800', '3500', '12600', '10000'],
+      },]
+
+  };
+
+  const dataPorDispositivos = {
+    labels: labelPorDispositivos,
+    datasets: [
+      {
+        label: 'Movimento ',
+        backgroundColor: 'white',
+        borderColor: 'white',
+        data: ['25000', '10000', '15000', '3500', '12600', '17900', '2800', '3500', '12600', '10000', '5000', '25000'],
+      },]
+
+  };
+
+  const dataPorSetores = {
+    labels: labelPorSetores,
+    datasets: [
+      {
+        label: 'Movimento ',
+        backgroundColor: ['#FFF', '#FFF', '#FF7575', '#FFF', '#FFF', '#FFF'],
+        borderColor: 'gray',
+        data: ['10000', '15000', '3500', '25000', '15000'],
+      },]
+  };
+
+  const dataVariacaoPorSetor = {
+    labels: labelVariacaoPorSetor,
+    datasets: [
+      {
+        label: 'Movimento ',
+        backgroundColor: '#FFF',
+        borderColor: '#FFF',
+        data: ['10000', '15000', '3500', '25000', '15000', '15000', '10000', '25000', '15000', '15000', '8000', '25000'],
+      },]
+  }
+
+  const configTodosDispositivos = {
+    type: 'bar',
+    data: dataTodosDispositivos,
+    options: {},
+  };
+
+  const configPorDispositivos = {
+    type: 'line',
+    data: dataPorDispositivos,
+    options: {},
+  };
+
+  const configPorSetores = {
+    type: 'bar',
+    data: dataPorSetores,
+    options: {},
+  };
+
+  const configVariacaoPorSetor = {
+    type: 'line',
+    data: dataVariacaoPorSetor,
+    options: {},
+  }
+
+  const todosDispositivos = new Chart(
+    document.getElementById('todosDispositivos'),
+    configTodosDispositivos
+  );
+
+  const porDispositivos = new Chart(
+    document.getElementById('porDispositivos'),
+    configPorDispositivos
+  );
+
+  const porSetores = new Chart(
+    document.getElementById('porSetores'),
+    configPorSetores
+  );
+
+  const variacaoPorSetor = new Chart(
+    document.getElementById('variacaoPorSetor'),
+    configVariacaoPorSetor
+  );
+</script>
