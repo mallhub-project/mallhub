@@ -206,8 +206,54 @@ function salvarShopping() {
   Swal.fire('OK!', 'Shopping atualizado com sucesso!', 'success')
 }
 
-function salvarUsuario() {
-  Swal.fire('OK!', 'Perfil atualizado com sucesso!', 'success')
+async function salvarUsuario() {
+
+  const nome = nomePerfil.value;
+  const cpf = cpfPerfil.value;
+  const telefone = telefonePerfil.value;
+  const cargo = cargoPerfil.value;
+  const idUsuario = sessionStorage.getItem('ID_USUARIO') != null || undefined ? sessionStorage.getItem('ID_USUARIO') : null
+  
+  if (nome && idUsuario != null && cpf && telefone && cargo && telefone.length >= 9) {
+
+  await fetch("/usuarios/atualizar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        cpfServer: cpf,
+        telefoneServer: telefone,
+        cargoServer: cargo,
+        idUsuarioServer: idUsuario
+      })
+    }).then(async function (resposta) {
+      if (resposta.ok) {
+        
+        Swal.fire('OK!', 'Perfil atualizado com sucesso!', 'success')
+        console.log(resposta)
+        await fetch(`/usuarios/listar-usuario/${idUsuario}`).then(function (resultado){
+          return resultado.json()
+        }).then(function (data) {
+          console.log(data)
+          window.sessionStorage.removeItem('NOME_USUARIO')
+          window.sessionStorage.setItem('NOME_USUARIO', data.nome)
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }).catch(function (erro) {
+          Swal.fire('Ops!', 'Não foi possivel carregar as informações' + erro, 'error')
+        })
+
+      } else {
+        throw ("Houve um erro ao tentar realizar a atualização de Perfil!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
+
 }
 
 /* função para acessos */

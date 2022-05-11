@@ -38,6 +38,20 @@ function listar() {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+async function listarUsuario(idUsuario) {
+    var instrucao = `
+        SELECT * FROM usuario WHERE id_usuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return await database.executar(instrucao);
+}
+function salvarUsuario(nome, cpf, telefone, cargo, idUsuario) {
+    var instrucao = `
+        UPDATE usuario SET nome = '${nome}', cpf = '${cpf}', telefone = '${telefone}', cargo = '${cargo}' WHERE id_usuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 function validaremail(email) {
     var instrucao = `SELECT * FROM usuario WHERE email = '${email}';`;
@@ -52,6 +66,8 @@ function validarcnpj(cnpj) {
 module.exports = {
     entrar,
     cadastrar,
+    salvarUsuario,
+    listarUsuario,
     listar,
     validaremail,
     validarcnpj

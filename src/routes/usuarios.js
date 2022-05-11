@@ -29,5 +29,13 @@ router.post("/validaremail", function (req, res) {
 router.post("/validarcnpj", function (req, res) {
     usuarioController.validarcnpj(req, res);
 });
+// Atualizar perfil do usuario
+router.post("/atualizar", function (req, res) {
+    usuarioController.salvarUsuario(req, res);
+});
+
+router.get("/listar-usuario/:idUsuario", (req, res) => {
+    usuarioController.findByIdUsuario(req, res)
+}) 
 
 module.exports = router;

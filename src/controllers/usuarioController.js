@@ -164,11 +164,73 @@ function validarcnpj(req, res) {
         );
     }
 }
+async function salvarUsuario(req, res) { 
+    var nome = req.body.nomeServer;
+    var cpf = req.body.cpfServer;
+    var telefone = req.body.telefoneServer;
+    var cargo = req.body.cargoServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (cpf == undefined) {
+        res.status(400).send("Seu cpf está undefined!");
+    } else if (telefone == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está undefined!");
+    } else {
+        await usuarioModel.salvarUsuario(nome, cpf, telefone, cargo, idUsuario)
+            .then(function (resultado) {
+                if (resultado.affectedRows > 0) {
+                    res.status(200).send('OK')
+                } else {
+                    res.status(404).json('Não foi possivel localizar o ID do usuario informado');
+                }
+            }).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao atualizar o nome, cpf, telefone ou cargo! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+    
+}
+async function findByIdUsuario(req, res) {
+    const idUsuario = req.params.idUsuario;
+    console.log(req.params)
+    console.log('cai aqui')
+    if (idUsuario == undefined) {
+        res.status(400).send("Seu idUsuario está undefined!");
+    } else {
+        usuarioModel.listarUsuario(idUsuario)
+            .then(function (resultado) {
+                if (resultado) {
+                    
+                    var usuario = Object.values(JSON.parse(JSON.stringify(resultado)))
+                    console.log(usuario)
+                    
+                    res.status(200).send(usuario[0])
+                } else {
+                    res.status(404).json("Usuario não encontrado !");
+                }
+            }).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao realizar a consulta do email! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 
 
 module.exports = {
     entrar,
     cadastrar,
+    salvarUsuario,
+    findByIdUsuario,
     listar,
     testar,
     validaremail,
