@@ -237,8 +237,11 @@ async function salvarUsuario() {
           return resultado.json()
         }).then(function (data) {
           console.log(data)
-          window.sessionStorage.removeItem('NOME_USUARIO')
+          window.sessionStorage.removeItem('NOME_USUARIO', 'CPF_USUARIO', 'CARGO_USUARIO', 'TELEFONE_USUARIO')
           window.sessionStorage.setItem('NOME_USUARIO', data.nome)
+          window.sessionStorage.setItem('CPF_USUARIO', data.cpf)
+          window.sessionStorage.setItem('TELEFONE_USUARIO', data.telefone)
+          window.sessionStorage.setItem('CARGO_USUARIO', data.cargo)
           setTimeout(() => {
             window.location.reload()
           }, 2000);
