@@ -33,9 +33,17 @@ router.post("/validarcnpj", function (req, res) {
 router.post("/atualizar", function (req, res) {
     usuarioController.salvarUsuario(req, res);
 });
+// Atualizar informações do shopping
+router.post("/atualizarShopping", function (req, res) {
+    usuarioController.salvarShopping(req, res);
+});
 
 router.get("/listar-usuario/:idUsuario", (req, res) => {
     usuarioController.findByIdUsuario(req, res)
+}) 
+
+router.get("/listar-shopping/:idShopping", (req, res) => {
+    usuarioController.findByIdShopping(req, res)
 }) 
 
 module.exports = router;

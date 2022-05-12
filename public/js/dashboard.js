@@ -202,8 +202,53 @@ function editDispositivo() {
 
 /* função para o editar o shopping e o usuario */
 
-function salvarShopping() {
-  Swal.fire('OK!', 'Shopping atualizado com sucesso!', 'success')
+async function salvarShopping() {
+  const razaoSocial = razaoSocialPerfil.value;
+  const nomeFantasia = fantasyNamePerfil.value;
+  const cnpj = cnpjPerfil.value;
+  const idShopping = sessionStorage.getItem('ID_SHOPPING') != null || undefined ? sessionStorage.getItem('ID_SHOPPING') : null
+  
+  if ( idShopping != null && razaoSocial && nomeFantasia && cnpj ) {
+
+  await fetch("/usuarios/atualizarShopping", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        razaoSocialServer: razaoSocial,
+        cnpjServer: cnpj,
+        nomeFantasiaServer: nomeFantasia,
+        idShoppingServer: idShopping
+      })
+    }).then(async function (resposta) {
+      if (resposta.ok) {
+        
+        Swal.fire('OK!', 'Informações do shopping atualizado com sucesso!', 'success')
+        console.log(resposta)
+        await fetch(`/usuarios/listar-shopping/${idShopping}`).then(function (resultado){
+          return resultado.json()
+        }).then(function (data) {
+          console.log(data)
+          window.sessionStorage.removeItem('RAZAO_SOCIAL', 'NOME_FANTASIA', 'CNPJ')
+          window.sessionStorage.setItem('RAZAO_SOCIAL', data.razao_social)
+          window.sessionStorage.setItem('NOME_FANTASIA', data.nome_fantasia)
+          window.sessionStorage.setItem('CNPJ', data.cnpj)
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }).catch(function (erro) {
+          Swal.fire('Ops!', 'Não foi possivel carregar as informações' + erro, 'error')
+        })
+
+      } else {
+        throw ("Houve um erro ao tentar realizar a atualização de Perfil!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
+
 }
 
 async function salvarUsuario() {

@@ -197,6 +197,39 @@ async function salvarUsuario(req, res) {
     }
     
 }
+
+async function salvarShopping(req, res) { 
+    var razao_social = req.body.razaoSocialServer;
+    var nome_fantasia = req.body.nomeFantasiaServer;
+    var cnpj = req.body.cnpjServer;
+    var idShopping = req.body.idShoppingServer;
+
+    if (razao_social == undefined) {
+        res.status(400).send("Sua razao_social está undefined!");
+    } else if (nome_fantasia == undefined) {
+        res.status(400).send("Seu nome_fantasia está undefined!");
+    } else if (cnpj == undefined) {
+        res.status(400).send("Seu cnpj está undefined!");
+    }
+     else {
+        await usuarioModel.salvarShopping(razao_social, nome_fantasia, cnpj, idShopping)
+            .then(function (resultado) {
+                if (resultado.affectedRows > 0) {
+                    res.status(200).send('OK')
+                } else {
+                    res.status(404).json('Não foi possivel localizar o ID do usuario informado');
+                }
+            }).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao atualizar a razao_social, nome_fantasia, cnpj   Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+    
+}
+
 async function findByIdUsuario(req, res) {
     const idUsuario = req.params.idUsuario;
     console.log(req.params)
@@ -225,6 +258,34 @@ async function findByIdUsuario(req, res) {
     }
 }
 
+async function findByIdShopping(req, res) {
+    const idShopping = req.params.idShopping;
+    console.log(req.params)
+    if (idShopping == undefined) {
+        res.status(400).send("Seu idShopping está undefined!");
+    } else {
+        usuarioModel.listarShopping(idShopping)
+            .then(function (resultado) {
+                if (resultado) {
+                    //console.log('AQUI', resultado)
+                    var shopping = Object.values(JSON.parse(JSON.stringify(resultado)))
+                    console.log(shopping, 'aqui')
+                    
+                    res.status(200).send(shopping[0])
+                
+                } else {
+                    res.status(404).json("Shopping não encontrado !");
+                }
+            }).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao realizar a consulta do email! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 
 module.exports = {
     entrar,
@@ -234,5 +295,7 @@ module.exports = {
     listar,
     testar,
     validaremail,
+    findByIdShopping,
+    salvarShopping,
     validarcnpj
 }

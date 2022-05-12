@@ -45,9 +45,26 @@ async function listarUsuario(idUsuario) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return await database.executar(instrucao);
 }
+
+async function listarShopping(idShopping) {
+    var instrucao = `
+        SELECT * FROM shopping WHERE id_shopping = ${idShopping};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return await database.executar(instrucao);
+}
+
 function salvarUsuario(nome, cpf, telefone, cargo, idUsuario) {
     var instrucao = `
         UPDATE usuario SET nome = '${nome}', cpf = '${cpf}', telefone = '${telefone}', cargo = '${cargo}' WHERE id_usuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function salvarShopping(razao_social, nome_fantasia, cnpj, idShopping) {
+    var instrucao = `
+    UPDATE shopping SET razao_social = '${razao_social}', nome_fantasia = '${nome_fantasia}', cnpj = '${cnpj}' WHERE id_shopping = ${idShopping};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -70,5 +87,7 @@ module.exports = {
     listarUsuario,
     listar,
     validaremail,
+    salvarShopping,
+    listarShopping,
     validarcnpj
 };
