@@ -59,7 +59,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 15px;
-    margin-bottom: 37px;
+    margin-bottom: 27px;
     text-align: center;
 }
 
@@ -214,11 +214,10 @@ body {
 .etapas{
     font-size: 20px;
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     justify-content: center;
     font-family: 'Inter';
     font-weight: 300;
-    padding-bottom: 15px;
 }
 
 ::-webkit-scrollbar {
