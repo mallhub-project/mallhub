@@ -18,6 +18,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <script src="js/index.js"></script>
 </head>
 
 <body>
@@ -148,19 +149,20 @@
         class="containerContato" 
         action="https://formsubmit.co/Mallhub.shoppings@gmail.com" 
         method="POST" 
-        target="_blank"
         >
             <div>
                 <h1>Gostou da ideia?</h1>
                 <p>Entre em contato conosco e atraia mais <br> clientes para seu shoping</p>
-                <button type="submit" required>Enviar mensagem</button>
+                <button type="submit" required onclick="sendEmail()">Enviar mensagem</button>
             </div>
             <div class="inputs">
+                <p id="span_warning" style="display: none; font-size: 14px; color: red;">Preencha as informações</p>
+                <p id="span_warning_email" style="display: none; font-size: 14px; color: red; padding: 5px 0;">Email precisa ser válido</p>
                 <input type="hidden" name="_next" value="http://localhost:3333/index.html">
                 <input type="hidden" name="_template" value="box">
-                <input type="text" name="name" placeholder="Nome" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea placeholder="Mensagem" name="message" required></textarea>
+                <input id="nomeMessage" type="text" name="name" placeholder="Nome" required>
+                <input id="emailMessage" type="email" name="email" placeholder="Email" required>
+                <textarea id="mensagemSend" placeholder="Mensagem" name="message" required></textarea>
             </div>
         </form>
     </section>
