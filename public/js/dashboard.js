@@ -173,7 +173,7 @@ function hideAlerta() {
 
 /* função para o Dispositivo */
 function novoDispositivo() {
-  alert('Adicionar dispositivo')
+    
 }
 
 function deleteDispositivo() {
@@ -200,6 +200,50 @@ function editDispositivo() {
   alert('editar dispositivo')
 }
 
+function listarDispositivo() {
+
+  fetch('/dispositivo/listar').then(function (resposta) {
+    if (resposta.ok) {
+      resposta.json().then(function (resposta) {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+        // //salva na sessão storage browser
+
+        sessionStorage.ID_DISPOSITIVO = resposta[0].id_dispositivo;
+        sessionStorage.NOME_DISPOSITIVO = resposta[1].nome;
+
+        const nomeDispositivo = sessionStorage.NOME_DISPOSITIVO
+
+        if (true) {
+          divDispositivos.innerHTML += `
+            <div class="dash_item">
+              <div>
+                <p class="dash_p">${nomeDispositivo}</p>
+              </div>
+              <div>
+                <button onclick="editDispositivo()">
+                  <img src="img/editar.svg">
+                </button>
+                <button onclick="deleteDispositivo()">
+                  <img src="img/lixeira.svg">
+                </button>
+              </div>
+            </div>
+            `
+        }
+      });
+    } else {
+      console.log("Houve um erro ao tentar realizar o login!");
+      resposta.text().then(texto => {
+        console.error(texto);
+      });
+    }
+  })
+
+  // if de atualização de dispositivos **************************************************************
+
+}
+
 /* função para o editar o shopping e o usuario */
 
 async function salvarShopping() {
@@ -207,10 +251,10 @@ async function salvarShopping() {
   const nomeFantasia = fantasyNamePerfil.value;
   const cnpj = cnpjPerfil.value;
   const idShopping = sessionStorage.getItem('ID_SHOPPING') != null || undefined ? sessionStorage.getItem('ID_SHOPPING') : null
-  
-  if ( idShopping != null && razaoSocial && nomeFantasia && cnpj ) {
 
-  await fetch("/usuarios/atualizarShopping", {
+  if (idShopping != null && razaoSocial && nomeFantasia && cnpj) {
+
+    await fetch("/usuarios/atualizarShopping", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -223,10 +267,10 @@ async function salvarShopping() {
       })
     }).then(async function (resposta) {
       if (resposta.ok) {
-        
+
         Swal.fire('OK!', 'Informações do shopping atualizado com sucesso!', 'success')
         console.log(resposta)
-        await fetch(`/usuarios/listar-shopping/${idShopping}`).then(function (resultado){
+        await fetch(`/usuarios/listar-shopping/${idShopping}`).then(function (resultado) {
           return resultado.json()
         }).then(function (data) {
           console.log(data)
@@ -258,10 +302,10 @@ async function salvarUsuario() {
   const telefone = telefonePerfil.value;
   const cargo = cargoPerfil.value;
   const idUsuario = sessionStorage.getItem('ID_USUARIO') != null || undefined ? sessionStorage.getItem('ID_USUARIO') : null
-  
+
   if (nome && idUsuario != null && cpf && telefone && cargo && telefone.length >= 9) {
 
-  await fetch("/usuarios/atualizar", {
+    await fetch("/usuarios/atualizar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -275,10 +319,10 @@ async function salvarUsuario() {
       })
     }).then(async function (resposta) {
       if (resposta.ok) {
-        
+
         Swal.fire('OK!', 'Perfil atualizado com sucesso!', 'success')
         console.log(resposta)
-        await fetch(`/usuarios/listar-usuario/${idUsuario}`).then(function (resultado){
+        await fetch(`/usuarios/listar-usuario/${idUsuario}`).then(function (resultado) {
           return resultado.json()
         }).then(function (data) {
           console.log(data)

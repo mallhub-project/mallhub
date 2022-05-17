@@ -32,7 +32,7 @@
           <img class="inicioIcon" id="inicioIcon" src="img/imgens-dashboard/f_inicio.svg" alt="Inicio">
           <div style="cursor: pointer;">Inicio</div>
         </div>
-        <div onclick="Dispositivos()" id="dispositivoNavbar">
+        <div onclick="Dispositivos() " id="dispositivoNavbar">
           <img class="dispositivoIcon" id="dispositivoIcon" src="img/imgens-dashboard/f_dispositivos.svg"
             alt="Dispositivos">
           <div style="cursor: pointer;">Dispositivos</div>
@@ -214,7 +214,7 @@
         <div id="divDispositivos" class="dash_dispositivos" style="display: none;">
           <div class="dash_topo">
             <h1 class="dash_h1">Seus Dispositivos</h1>
-            <button onclick="novoDispositivo()">Novo Dispositivo</button>
+            <button onclick="novoDispositivo(), listarDispositivo()">Novo Dispositivo</button>
           </div>
 
           <div class="dash_item">
@@ -230,46 +230,6 @@
               </button>
             </div>
           </div>
-          <div class="dash_item">
-            <div>
-              <p class="dash_p">Dispositivo C&A</p>
-            </div>
-            <div>
-              <button onclick="editDispositivo()">
-                <img src="img/editar.svg">
-              </button>
-              <button onclick="deleteDispositivo()">
-                <img src="img/lixeira.svg">
-              </button>
-            </div>
-          </div>
-          <div class="dash_item">
-            <div>
-              <p class="dash_p">Dispositivo Caedu</p>
-            </div>
-            <div>
-              <button onclick="editDispositivo()">
-                <img src="img/editar.svg">
-              </button>
-              <button onclick="deleteDispositivo()">
-                <img src="img/lixeira.svg">
-              </button>
-            </div>
-          </div>
-          <div class="dash_item">
-            <div>
-              <p class="dash_p">Dispositivo Zara</p>
-            </div>
-            <div>
-              <button onclick="editDispositivo()">
-                <img src="img/editar.svg">
-              </button>
-              <button onclick="deleteDispositivo()">
-                <img src="img/lixeira.svg">
-              </button>
-            </div>
-          </div>
-        </div>
 
         <div id="divPerfil" style="display: none;">
           <div class="dash_perfil">
