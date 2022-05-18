@@ -13,7 +13,7 @@ async function cadastrar(nome, descricao) {
 
 function listar() {
     var instrucao = `
-        SELECT * FROM dispositivo;
+        SELECT nome, descricao, ativo FROM dispositivo;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

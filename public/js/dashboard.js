@@ -173,8 +173,15 @@ function hideAlerta() {
 
 /* função para o Dispositivo */
 function novoDispositivo() {
-    
+  nome_novo_disp.style.display = ""
+  descricao_novo_disp.style.display = ""
+  salvar_novo_disp.style.display = ""
 }
+function SalvarDispositivo() {
+  nome_novo_disp.style.display = "none"
+  descricao_novo_disp.style.display = "none"
+  salvar_novo_disp.style.display = "none"
+} 
 
 function deleteDispositivo() {
   Swal.fire({
@@ -211,14 +218,19 @@ function listarDispositivo() {
 
         sessionStorage.ID_DISPOSITIVO = resposta[0].id_dispositivo;
         sessionStorage.NOME_DISPOSITIVO = resposta[1].nome;
-
+        console.log(resposta.length)
         const nomeDispositivo = sessionStorage.NOME_DISPOSITIVO
 
-        if (true) {
-          divDispositivos.innerHTML += `
+
+        var listaDispositivo = resposta
+
+        for (var posicao = 0; posicao < listaDispositivo.length; posicao++) {
+
+          if (true) {
+            divDispositivos.innerHTML += `
             <div class="dash_item">
               <div>
-                <p class="dash_p">${nomeDispositivo}</p>
+                <p class="dash_p">${listaDispositivo[posicao].nome}</p>
               </div>
               <div>
                 <button onclick="editDispositivo()">
@@ -230,7 +242,18 @@ function listarDispositivo() {
               </div>
             </div>
             `
+          }
+
         }
+
+
+
+
+
+
+
+
+        
       });
     } else {
       console.log("Houve um erro ao tentar realizar o login!");

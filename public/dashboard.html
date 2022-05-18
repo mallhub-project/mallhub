@@ -23,7 +23,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), listarDispositivo()">
   <div class="container">
     <div class="painel">
       <div class="conteudo">
@@ -32,7 +32,7 @@
           <img class="inicioIcon" id="inicioIcon" src="img/imgens-dashboard/f_inicio.svg" alt="Inicio">
           <div style="cursor: pointer;">Inicio</div>
         </div>
-        <div onclick="Dispositivos() " id="dispositivoNavbar">
+        <div onclick="Dispositivos()" id="dispositivoNavbar">
           <img class="dispositivoIcon" id="dispositivoIcon" src="img/imgens-dashboard/f_dispositivos.svg"
             alt="Dispositivos">
           <div style="cursor: pointer;">Dispositivos</div>
@@ -103,7 +103,7 @@
 
           <div>
             <div class="containerGrafico">
-              <div class="tituloGraficos"> 
+              <div class="tituloGraficos">
                 <p>Perspectiva panorâmica</p>
               </div>
               <div class="filtros">
@@ -145,7 +145,7 @@
             </div>
             <div class="containerGrafico">
               <div id="graficoPorDispositivos">
-                <div class="tituloGraficos"> 
+                <div class="tituloGraficos">
                   <p>Perspectiva Individual por dispositivo</p>
                 </div>
                 <div class="filtros">
@@ -179,7 +179,7 @@
                 </div>
               </div>
               <div id="graficoPorSetor" style="display: none;">
-                <div class="tituloGraficos"> 
+                <div class="tituloGraficos">
                   <p>Perspectiva Individual por setor</p>
                 </div>
                 <div class="filtros">
@@ -214,21 +214,18 @@
         <div id="divDispositivos" class="dash_dispositivos" style="display: none;">
           <div class="dash_topo">
             <h1 class="dash_h1">Seus Dispositivos</h1>
-            <button onclick="novoDispositivo(), listarDispositivo()">Novo Dispositivo</button>
+            <button onclick="novoDispositivo()">Novo Dispositivo</button>
           </div>
-
-          <div class="dash_item">
-            <div>
-              <p class="dash_p">Dispositivo Renner</p>
-            </div>
-            <div>
-              <button onclick="editDispositivo()">
-                <img src="img/editar.svg">
-              </button>
-              <button onclick="deleteDispositivo()">
-                <img src="img/lixeira.svg">
-              </button>
-            </div>
+          <div class="dash_item" id="nome_novo_disp" style="display: none;">
+            <h3>Nome Dispositivo:</h3>
+            <input class="dash_input_info" id="nome_dispositivo" placeholder="Nome">
+          </div>
+          <div class="dash_item" id="descricao_novo_disp" style="display: none;">
+            <h3>Descrição do Dispositivo:</h3>
+            <input class="dash_input_info" id="descricao_dispositivo" placeholder="Descrição">
+          </div>
+          <div class="dash_item" id="salvar_novo_disp" style="display: none;">
+            <button onclick="SalvarDispositivo()" id="botao_salvarDispositivo">Salvar Dispositivo</button>
           </div>
         </div>
         <div id="divPerfil" style="display: none;">

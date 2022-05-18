@@ -328,7 +328,20 @@ body {
     width: 233px;
     cursor: pointer;
 }
-
+#botao_salvarDispositivo {
+    font-weight: 700;
+    background-color: #000;
+    border-radius: 15px;
+    color: #fff;
+    height: 40px;
+    width: 233px;
+    cursor: pointer;
+}
+#salvar_novo_disp {
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+}
 .dash_novo_dispositivo {
     border: #d7d7d7 1px solid;
     border-radius: 15px;
