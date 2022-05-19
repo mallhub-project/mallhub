@@ -175,16 +175,30 @@ function hideAlerta() {
 
 async function novoDispositivo() {
   if (modalNovoDispositivo.style.display == 'none') {
+
     var id_shopping = sessionStorage.ID_SHOPPING
+
     setorDispositivo.innerHTML = '<option value="0">Selecione o setor</option>'
     localidadesDispositivo.innerHTML = '<option value="0">Selecione a localidade</option>'
+
     if (id_shopping) {
       await fetch(`/localidade/listar?idShopping=${id_shopping}`)
         .then(data => data.json())
         .then((data) => {
+          for (var posicao = 0; posicao < data.length; posicao++) {
+            localidadesDispositivo.innerHTML += `<option value="${data[posicao].id_localidade}">${data[posicao].nome}</option>`
+          }
+          modalNovoDispositivo.style.display = ''
+        }).catch(function () {
+          modalNovoDispositivo.style.display == 'none'
+        });
+
+        await fetch(`/setor/listar?idShopping=${id_shopping}`)
+        .then(data => data.json())
+        .then((data) => {
           console.log('RESPOSTA DA REQUISIÇÃO', data)
           for (var posicao = 0; posicao < data.length; posicao++) {
-            localidadesDispositivo.innerHTML += `<option value="${data[posicao].id}">${data[posicao].nome}</option>`
+            setorDispositivo.innerHTML += `<option value="${data[posicao].id_setor}">${data[posicao].descricao}</option>`
           }
           modalNovoDispositivo.style.display = ''
         }).catch(function (error) {
