@@ -212,22 +212,30 @@
         </div>
 
         <div id="divDispositivos" class="dash_dispositivos" style="display: none;">
+
+          <div id="modalNovoDispositivo" style="display: none;">
+            <div class="buttonClose" onclick="novoDispositivo()">X</div>
+            <div class="box">
+              <h2>Nome Dispositivo:</h2>
+              <input class="dash_input_info" id="nome_dispositivo" placeholder="Nome">
+
+              <h2>Descrição do Dispositivo:</h2>
+              <input class="dash_input_info" id="descricao_dispositivo" placeholder="Descrição">
+
+              <h2>Localidade</h2>
+              <select id="localidadesDispositivo">
+                <option value="0">Selecione a localidade</option>
+              </select>
+            </div>
+            <button onclick="SalvarDispositivo()" id="botao_salvarDispositivo">Salvar Dispositivo</button>
+          </div>
+
           <div class="dash_topo">
             <h1 class="dash_h1">Seus Dispositivos</h1>
             <button onclick="novoDispositivo()">Novo Dispositivo</button>
           </div>
-          <div class="dash_item" id="nome_novo_disp" style="display: none;">
-            <h3>Nome Dispositivo:</h3>
-            <input class="dash_input_info" id="nome_dispositivo" placeholder="Nome">
-          </div>
-          <div class="dash_item" id="descricao_novo_disp" style="display: none;">
-            <h3>Descrição do Dispositivo:</h3>
-            <input class="dash_input_info" id="descricao_dispositivo" placeholder="Descrição">
-          </div>
-          <div class="dash_item" id="salvar_novo_disp" style="display: none;">
-            <button onclick="SalvarDispositivo()" id="botao_salvarDispositivo">Salvar Dispositivo</button>
-          </div>
         </div>
+
         <div id="divPerfil" style="display: none;">
           <div class="dash_perfil">
             <div class="dash_topo">

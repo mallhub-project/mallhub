@@ -404,9 +404,9 @@ body {
     margin: 0 5px;
 }
 
-.dash_input_info {
+.dash_input_info, #localidadesDispositivo {
     display: flex;
-    height: 30px;
+    min-height: 30px;
     justify-content: space-between;
     border: #d7d7d7 1px solid;
     border-radius: 15px;
@@ -433,6 +433,34 @@ body {
     background: #aeaeae;
     border-radius: 10px;
 }
+
+#modalNovoDispositivo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #aeaeae;
+    padding: 20px 50px 20px 50px;
+    margin-left: 150px;
+    border-radius: 10px;
+}
+
+#modalNovoDispositivo .box {
+    width: 100%;
+    height: 100%;
+}
+
+#modalNovoDispositivo .buttonClose {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+
+/* acessos */
 
 .acessosConta {
     color: white;

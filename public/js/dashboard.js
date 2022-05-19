@@ -172,16 +172,32 @@ function hideAlerta() {
 }
 
 /* função para o Dispositivo */
-function novoDispositivo() {
-  nome_novo_disp.style.display = ""
-  descricao_novo_disp.style.display = ""
-  salvar_novo_disp.style.display = ""
+
+async function novoDispositivo() {
+  if (modalNovoDispositivo.style.display == 'none') {
+    var id_shopping = sessionStorage.ID_SHOPPING
+    if (id_shopping) {
+      await fetch(`/localidade/listar?idShopping=${id_shopping}`)
+        .then(data => data.json())
+        .then((data) => {
+          console.log('RESPOSTA DA REQUISIÇÃO', data)
+          for (var posicao = 0; posicao < data.length; posicao++) {
+            localidadesDispositivo.innerHTML += `<option value="${data[posicao].id}">${data[posicao].nome}</option>`
+          }
+          modalNovoDispositivo.style.display = ''
+        }).catch(function (error) {
+          console.log('Erro ao trazer a localidade', error)
+          modalNovoDispositivo.style.display == 'none'
+        });
+    }
+  } else {
+    modalNovoDispositivo.style.display = 'none'
+  }
 }
+
 function SalvarDispositivo() {
-  nome_novo_disp.style.display = "none"
-  descricao_novo_disp.style.display = "none"
-  salvar_novo_disp.style.display = "none"
-} 
+  alert('salvando')
+}
 
 function deleteDispositivo() {
   Swal.fire({
@@ -212,13 +228,10 @@ function listarDispositivo() {
   fetch('/dispositivo/listar').then(function (resposta) {
     if (resposta.ok) {
       resposta.json().then(function (resposta) {
-        console.log("Dados recebidos: ", JSON.stringify(resposta));
-
         // //salva na sessão storage browser
 
         sessionStorage.ID_DISPOSITIVO = resposta[0].id_dispositivo;
         sessionStorage.NOME_DISPOSITIVO = resposta[1].nome;
-        console.log(resposta.length)
         const nomeDispositivo = sessionStorage.NOME_DISPOSITIVO
 
 
@@ -245,15 +258,6 @@ function listarDispositivo() {
           }
 
         }
-
-
-
-
-
-
-
-
-        
       });
     } else {
       console.log("Houve um erro ao tentar realizar o login!");
