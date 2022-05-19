@@ -404,7 +404,7 @@ body {
     margin: 0 5px;
 }
 
-.dash_input_info, #localidadesDispositivo {
+.dash_input_info, #localidadesDispositivo, #setorDispositivo {
     display: flex;
     min-height: 30px;
     justify-content: space-between;

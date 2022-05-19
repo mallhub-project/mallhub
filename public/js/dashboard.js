@@ -176,6 +176,8 @@ function hideAlerta() {
 async function novoDispositivo() {
   if (modalNovoDispositivo.style.display == 'none') {
     var id_shopping = sessionStorage.ID_SHOPPING
+    setorDispositivo.innerHTML = '<option value="0">Selecione o setor</option>'
+    localidadesDispositivo.innerHTML = '<option value="0">Selecione a localidade</option>'
     if (id_shopping) {
       await fetch(`/localidade/listar?idShopping=${id_shopping}`)
         .then(data => data.json())
