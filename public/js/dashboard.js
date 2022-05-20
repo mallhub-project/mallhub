@@ -65,6 +65,7 @@ function trocarDispositivos() {
 }
 
 function Dispositivos() {
+  listarDispositivo()
   divInicio.style.display = 'none'
   divDispositivos.style.display = ''
   divPerfil.style.display = 'none'
@@ -193,7 +194,7 @@ async function novoDispositivo() {
           modalNovoDispositivo.style.display == 'none'
         });
 
-        await fetch(`/setor/listar?idShopping=${id_shopping}`)
+      await fetch(`/setor/listar?idShopping=${id_shopping}`)
         .then(data => data.json())
         .then((data) => {
           console.log('RESPOSTA DA REQUISIÇÃO', data)
@@ -240,39 +241,27 @@ function editDispositivo() {
 }
 
 function listarDispositivo() {
-
-  fetch('/dispositivo/listar').then(function (resposta) {
+  listaDispositivos.innerHTML = ''
+  var id_shopping = sessionStorage.ID_SHOPPING
+  fetch(`/dispositivo/listar?idShopping=${id_shopping}`).then(function (resposta) {
     if (resposta.ok) {
       resposta.json().then(function (resposta) {
-        // //salva na sessão storage browser
-
-        sessionStorage.ID_DISPOSITIVO = resposta[0].id_dispositivo;
-        sessionStorage.NOME_DISPOSITIVO = resposta[1].nome;
-        const nomeDispositivo = sessionStorage.NOME_DISPOSITIVO
-
-
-        var listaDispositivo = resposta
-
-        for (var posicao = 0; posicao < listaDispositivo.length; posicao++) {
-
-          if (true) {
-            divDispositivos.innerHTML += `
-            <div class="dash_item">
-              <div>
-                <p class="dash_p">${listaDispositivo[posicao].nome}</p>
-              </div>
-              <div>
-                <button onclick="editDispositivo()">
-                  <img src="img/editar.svg">
-                </button>
-                <button onclick="deleteDispositivo()">
-                  <img src="img/lixeira.svg">
-                </button>
-              </div>
-            </div>
-            `
-          }
-
+        for (var posicao = 0; posicao < resposta.length; posicao++) {
+          listaDispositivos.innerHTML += `
+              <div id="${resposta[posicao].id_dispositivo}" class="dash_item">
+                <div>
+                  <p class="dash_p">${resposta[posicao].nome}</p>
+                </div>
+                <div>
+                  <button onclick="editDispositivo()">
+                    <img src="img/editar.svg">
+                  </button>
+                  <button onclick="deleteDispositivo()">
+                    <img src="img/lixeira.svg">
+                  </button>
+                </div>
+              </div>  
+              `
         }
       });
     } else {
@@ -282,9 +271,6 @@ function listarDispositivo() {
       });
     }
   })
-
-  // if de atualização de dispositivos **************************************************************
-
 }
 
 /* função para o editar o shopping e o usuario */
