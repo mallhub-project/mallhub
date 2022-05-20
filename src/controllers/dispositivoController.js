@@ -21,6 +21,96 @@ function listar(req, res) {
         );
 }
 
+function cadastrar(req, res) {
+    var nome = req.body.nomeServer;
+    var descricao = req.body.descricaoServer;
+    var fk_localidade = req.body.localidadeServer;
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está indefinido aaaaa!");
+    } else if (descricao == undefined) {
+        res.status(400).send("Sua descrição está indefinida!");
+    } else if (fk_localidade == undefined) {
+        res.status(400).send("Sua localidade está indefinida!");
+    } else {
+        dispositivoModel.cadastrar(nome, descricao, fk_localidade)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function apagar(req, res) {
+   var id_dispositivo = req.body.id_dispositivoServer
+
+    if (id_dispositivo == undefined) {
+        res.status(400).send("Seu id está indefinido!");
+    } else {
+        dispositivoModel.apagar(id_dispositivo)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function editar(req, res) {
+    var id_dispositivo = req.body.id_dispositivoServer
+    var nome = req.body.nomeServer;
+    var descricao = req.body.descricaoServer;
+    var fk_localidade = req.body.localidadeServer;
+
+    if (id_dispositivo == undefined) {
+        res.status(400).send("Seu id está indefinido!");
+    } else if (nome == undefined) {
+        res.status(400).send("Seu nome está indefinido!");
+    } else if (descricao == undefined) {
+        res.status(400).send("Sua descricao está indefinida!");
+    } else if (fk_localidade == undefined) {
+        res.status(400).send("Sua localidade está indefinida!");
+    } else {
+        dispositivoModel.editar(id_dispositivo, nome, descricao, fk_localidade)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
-    listar
+    listar,
+    cadastrar,
+    apagar,
+    editar
 }
