@@ -24,8 +24,9 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
+
+app.use("/aviso", avisosRouter);
 app.use("/dispositivo", dispositivoRouter);
 app.use("/localidade", localidadeRouter);
 app.use("/setor", setorRouter);

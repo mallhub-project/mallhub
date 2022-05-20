@@ -23,7 +23,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 </head>
 
-<body onload="validarSessao(), listarDispositivo()">
+<body onload="validarSessao(), listarDispositivo(), showAlerta(false)">
   <div class="container">
     <div class="painel">
       <div class="conteudo">
@@ -56,31 +56,18 @@
       <div class="navbar">
         <div class=" direita">
           <div class="sino">
-            <img onclick="showAlerta()" src="img/imgens-dashboard/f_notificaçao.svg" alt="Ver alertas">
-            <div onclick="showAlerta()" class="notificaçao">2</div>
+            <img onclick="showAlerta(true)" src="img/imgens-dashboard/f_notificaçao.svg" alt="Ver alertas">
+            <div onclick="showAlerta(true)" class="notificaçao" id="quantidadeAlertas">0</div>
 
             <div id="idShowAlerta" class="modalAlerta" style="display: none;">
               <div class="navAlerta">
                 <button onclick="hideAlerta()">X</button>
               </div>
-              <div class="alertaItem">
-                <p>Cuidado, seu dispositivo Ala A, B está em perigo!</p>
-                <div>
-                  <span>23/04/2022</span>
-                  <span>13:00</span>
-                </div>
-              </div>
-              <div class="alertaItem">
-                <p>Cuidado, seu dispositivo Ala A, B está em perigo!</p>
-                <div>
-                  <span>23/04/2022</span>
-                  <span>13:00</span>
-                </div>
-              </div>
+              <div id="listarAlerta"></div>
             </div>
           </div>
           <div class="shoping" id="nomeShopping"></div>
-          <div><img src="img/imgens-dashboard/f_shoping.svg" alt=""></div>
+          <div><img src="img/imgens-dashboard/f_mallhub-icon.svg" alt="Logo mallhub" style="border-radius: 100px;"></div>
         </div>
       </div>
 

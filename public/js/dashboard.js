@@ -164,8 +164,31 @@ function loggout() {
 
 /* função mostrar alerta */
 
-function showAlerta() {
-  idShowAlerta.style.display = 'block'
+async function showAlerta(openModal) {
+  listarAlerta.innerHTML = ''
+  var id_shopping = sessionStorage.ID_SHOPPING
+  if (id_shopping) {
+    console.log(id_shopping)
+    await fetch(`/aviso/listar?idShopping=${id_shopping}`)
+      .then(data => data.json()).then((data) => {
+        quantidadeAlertas.innerHTML = `${data.length}`
+        for (var posicao = 0; posicao < data.length; posicao++) {
+          listarAlerta.innerHTML += `
+            <div class="alertaItem">
+              <p>${data[posicao].descricao}</p>
+              <div>
+                <span>${data[posicao].data_hora}</span>
+              </div>
+            </div>
+          `
+        }
+        if (openModal) {
+          idShowAlerta.style.display = ''
+        }
+      }).catch(function () {
+        idShowAlerta.style.display = 'none'
+      });
+  }
 }
 
 function hideAlerta() {
