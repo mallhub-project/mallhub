@@ -235,6 +235,7 @@ async function novoDispositivo() {
   }
 }
 
+
 function SalvarDispositivo() {
   alert('salvando')
 }
@@ -406,9 +407,21 @@ function showModalNewUser() {
   modalCadastroAcesso.style.display == 'flex'
 }
 
-function novoAcesso() {
-  alert('Criar novo acesso')
-}
+async function novoAcesso() {
+    if (modalNovoAcesso.style.display == 'none') {
+  
+      var id_shopping = sessionStorage.ID_SHOPPING
+  
+      if (id_shopping) {
+        await fetch(`/localidade/listar?idShopping=${id_shopping}`)
+          .then(data => data.json())
+          
+            
+      }
+    } else {
+      modalNovoAcesso.style.display = 'none'
+    }
+  }
 
 function editarAcesso() {
   alert('editar acesso')

@@ -268,14 +268,38 @@
           </div>
         </div>
 
+
+
+
+        
+
+
         <div id="divAcessos" style="display: none;">
+
+          <div id="modalNovoAcesso" style="display: none;">
+            <button class="buttonClose" onclick="novoAcesso()">x</button>
+            <div class="box">
+              <h2>Nome:</h2>
+              <input class="dash_input_info" id="nome_acesso" placeholder="Nome">
+  
+              <h2>Email:</h2>
+              <input class="dash_input_info" id="email_acesso" placeholder="Email">
+  
+              <h2>CPF:</h2>
+              <input class="dash_input_info" id="CPF_acesso" placeholder="CPF">
+  
+              <h2>Senha:</h2>
+              <input class="dash_input_info" id="senha_acesso" placeholder="senha">
+            </div>
+            <button onclick="SalvarAcesso()" id="botao_salvarAcesso">Salvar Acesso</button>
+          </div>
           <div class="dashs">
             <div class="dash_esquerda_acesso">
               <div class="dash_topo">
                 <div class="dash_h1">Novo acesso</div>
-                <div>
-                  <button class="btAcessos" onclick="showModalNewUser()">Novo Acesso</button>
-                </div>
+                <div class="botaoNewAcess">
+                <button onclick="novoAcesso()" class="botaoNovoAcesso">Novo Acesso</button>
+              </div>
               </div>
               <div>
                 <div class="dash_item">
