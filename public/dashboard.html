@@ -21,6 +21,15 @@
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <script src="js/dashboard.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+
+   <!--FERRAMENTA HELPDESK FRESHWORK-->
+   <script>
+    window.fwSettings = {
+        'widget_id': 73000003138
+    };
+    !function () { if ("function" != typeof window.FreshworksWidget) { var n = function () { n.q.push(arguments) }; n.q = [], window.FreshworksWidget = n } }() 
+</script>
+<script type='text/javascript' src='https://widget.freshworks.com/widgets/73000003138.js' async defer></script>
 </head>
 
 <body onload="validarSessao(), listarDispositivo(), showAlerta(false)">
