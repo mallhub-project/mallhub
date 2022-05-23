@@ -308,7 +308,7 @@ body {
 /*Tela de Dispositivos Inicio*/
 .dash_topo {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
@@ -333,7 +333,6 @@ body {
     height: 40px;
     width: 233px;
     cursor: pointer;
-    margin-left: 100px;
 }
 #botao_salvarDispositivo {
     font-weight: 700;
