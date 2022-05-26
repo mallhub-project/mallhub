@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <script src="js/dashboard.js"></script>
+  <script src="js/grafico.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 
    <!--FERRAMENTA HELPDESK FRESHWORK-->
@@ -32,7 +33,7 @@
 <script type='text/javascript' src='https://widget.freshworks.com/widgets/73000003138.js' async defer></script>
 </head>
 
-<body onload="validarSessao(), listarDispositivo(), showAlerta(false)">
+<body onload="validarSessao(), listarDispositivo(), showAlerta(false), obterDadosGrafico(sessionStorage.ID_SHOPPING)">
   <div class="container">
     <div class="painel">
       <div class="conteudo">
@@ -100,32 +101,7 @@
           <div>
             <div class="containerGrafico">
               <div class="tituloGraficos">
-                <p>Perspectiva panorâmica</p>
-              </div>
-              <div class="filtros">
-                <div>
-                  <p>Todos</p>
-                  <select class="select" id="filtroTodos" onchange="trocarDispositivos()">
-                    <option value="dispositivos">Dispositivos</option>
-                    <option value="setores">Setores</option>
-                  </select>
-                </div>
-                <div>
-                  <p>Filtrar Por:</p>
-                  <select class="select" id="filtro">
-                    <option value="todos">Janeiro</option>
-                    <option value="todos">Fevereiro</option>
-                    <option value="todos">Março</option>
-                    <option value="todos">Abril</option>
-                    <option value="todos">Maio</option>
-                    <option value="todos">Junho</option>
-                    <option value="todos">Julho</option>
-                    <option value="todos">Agosto</option>
-                    <option value="todos">Setembro</option>
-                    <option value="todos">Outubro</option>
-                    <option value="todos">Novembro</option>
-                  </select>
-                </div>
+                <p>Fluxo de Pessoas por Dia:</p>
               </div>
 
               <div class="containerGraficoChart">
@@ -142,31 +118,7 @@
             <div class="containerGrafico">
               <div id="graficoPorDispositivos">
                 <div class="tituloGraficos">
-                  <p>Perspectiva Individual por dispositivo</p>
-                </div>
-                <div class="filtros">
-                  <div>
-                    <p>Dispositivo:</p>
-                    <select class="select" id="alas">
-                      <option value="">D1</option>
-                      <option value="">D2</option>
-                      <option value="">D3</option>
-                      <option value="">D4</option>
-                      <option value="">D5</option>
-                      <option value="">D6</option>
-                      <option value="">D7</option>
-                      <option value="">D8</option>
-                      <option value="">D9</option>
-                      <option value="">D10</option>
-                    </select>
-                  </div>
-                  <div>
-                    <p>Filtrar Por:</p>
-                    <select class="select" id="filtro">
-                      <option value="todos">Mês</option>
-                      <option value="todos">Dia</option>
-                    </select>
-                  </div>
+                  <p>Fluxo de Pessoas por Mês:</p>
                 </div>
                 <div class="containerGraficoChart">
                   <div class="grafico">
@@ -177,25 +129,6 @@
               <div id="graficoPorSetor" style="display: none;">
                 <div class="tituloGraficos">
                   <p>Perspectiva Individual por setor</p>
-                </div>
-                <div class="filtros">
-                  <div>
-                    <p>Setores:</p>
-                    <select class="select" id="alas">
-                      <option>Alimentício</option>
-                      <option>Entretenimento</option>
-                      <option>Arte e cultura</option>
-                      <option>Lojistico</option>
-                      <option>Moda</option>
-                    </select>
-                  </div>
-                  <div>
-                    <p>Filtrar Por:</p>
-                    <select class="select" id="filtro">
-                      <option value="todos">Mês</option>
-                      <option value="todos">Dia</option>
-                    </select>
-                  </div>
                 </div>
                 <div class="containerGraficoChart">
                   <div class="grafico">
@@ -350,7 +283,7 @@
 </body>
 
 </html>
-<script>
+<!-- <script>
   const labelTodosDispositivos = [
     'D1',
     'D2',
@@ -491,4 +424,4 @@
     document.getElementById('variacaoPorSetor'),
     configVariacaoPorSetor
   );
-</script>
+</script> -->
