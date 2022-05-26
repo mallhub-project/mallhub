@@ -199,12 +199,8 @@ function hideAlerta() {
 
 async function novoDispositivo() {
   if (modalNovoDispositivo.style.display == 'none') {
-
     var id_shopping = sessionStorage.ID_SHOPPING
-
-    setorDispositivo.innerHTML = '<option value="0">Selecione o setor</option>'
     localidadesDispositivo.innerHTML = '<option value="0">Selecione a localidade</option>'
-
     if (id_shopping) {
       await fetch(`/localidade/listar?idShopping=${id_shopping}`)
         .then(data => data.json())
@@ -216,31 +212,75 @@ async function novoDispositivo() {
         }).catch(function () {
           modalNovoDispositivo.style.display == 'none'
         });
-
-      await fetch(`/setor/listar?idShopping=${id_shopping}`)
-        .then(data => data.json())
-        .then((data) => {
-          console.log('RESPOSTA DA REQUISIÇÃO', data)
-          for (var posicao = 0; posicao < data.length; posicao++) {
-            setorDispositivo.innerHTML += `<option value="${data[posicao].id_setor}">${data[posicao].descricao}</option>`
-          }
-          modalNovoDispositivo.style.display = ''
-        }).catch(function (error) {
-          console.log('Erro ao trazer a localidade', error)
-          modalNovoDispositivo.style.display == 'none'
-        });
     }
   } else {
     modalNovoDispositivo.style.display = 'none'
   }
 }
 
+function criar_dispositivo() {
+  var nome = nome_dispositivo.value
+  var descricao = descricao_dispositivo.value
+  var localidade = localidadesDispositivo.value
 
-function SalvarDispositivo() {
-  alert('salvando')
+  if (nome && descricao && localidade) {
+    fetch("/dispositivo/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        descricaoServer: descricao,
+        localidadeServer: localidade
+      })
+    }).then(function (resposta) {
+      if (resposta.status == 200) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Dispositivo cadastrado com sucesso!'
+        })
+        modalNovoDispositivo.style.display = 'none'
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'error',
+          title: 'Dispositivo não cadastrado!'
+        })
+        modalNovoDispositivo.style.display = 'none'
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+  } else {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    })
+    Toast.fire({
+      icon: 'error',
+      title: 'Preencha os campos necessários!'
+    })
+  }
 }
 
-function deleteDispositivo() {
+function deleteDispositivo(id_dispositivo) {
   Swal.fire({
     title: 'Deseja excluir?',
     text: "Você não poderá reverter isso",
@@ -251,17 +291,27 @@ function deleteDispositivo() {
     confirmButtonText: 'Sim, excluir!'
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        'OK!',
-        'Dispositivo excluido com sucesso!',
-        'success'
-      )
+      fetch("/dispositivo/apagar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id_dispositivoServer: id_dispositivo
+        })
+      }).then(function (resposta) {
+        if (resposta.status == 200) {
+          Swal.fire(
+            'OK!',
+            'Dispositivo excluido com sucesso!',
+            'success'
+          )
+        }
+      }).catch(function (erro) {
+        console.log(erro);
+      })
     }
   })
-}
-
-function editDispositivo() {
-  alert('editar dispositivo')
 }
 
 function listarDispositivo() {
@@ -277,10 +327,10 @@ function listarDispositivo() {
                   <p class="dash_p">${resposta[posicao].nome}</p>
                 </div>
                 <div>
-                  <button onclick="editDispositivo()">
+                  <button onclick="openModalEditar(${resposta[posicao].id_dispositivo})">
                     <img src="img/editar.svg">
                   </button>
-                  <button onclick="deleteDispositivo()">
+                  <button onclick="deleteDispositivo(${resposta[posicao].id_dispositivo})">
                     <img src="img/lixeira.svg">
                   </button>
                 </div>
@@ -295,6 +345,82 @@ function listarDispositivo() {
       });
     }
   })
+}
+
+function openModalEditar(id_dispositivo) {
+  var dispositivo = id_dispositivo
+  console.log(dispositivo, "dispositivo antes do if")
+  var id_shopping = sessionStorage.ID_SHOPPING
+
+  if (modalEditarDispositivo.style.display == 'none') {
+    if (id_dispositivo && id_shopping) {
+      localidadesDispositivo_editar.innerHTML = '<option value="0">Selecione a localidade</option>'
+      fetch(`/localidade/listar?idShopping=${id_shopping}`)
+        .then(data => data.json())
+        .then((data) => {
+          for (var posicao = 0; posicao < data.length; posicao++) {
+            localidadesDispositivo_editar.innerHTML += `<option value="${data[posicao].id_localidade}">${data[posicao].nome}</option>`
+          }
+        })
+      fetch(`/dispositivo/listar-por-id?idDispositivo=${id_dispositivo}`)
+        .then(function (resposta) {
+          if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+              console.log(resposta, "resposta do open modal editar")
+              nome_dispositivo_editar.value = resposta[0].nome
+              descricao_dispositivo_editar.value = resposta[0].descricao
+              localidadesDispositivo_editar.value = resposta[0].fk_localidade
+            });
+          }
+        })
+      modalEditarDispositivo.style.display = ''
+    }
+  } else {
+    console.log(dispositivo, "antes da função")
+    editDispositivo(dispositivo)
+  }
+}
+
+function editDispositivo(id_dispositivo) {
+  var dispositivoID = id_dispositivo
+  console.log(dispositivoID, "ID do dispositivo no editar")
+  var nome = nome_dispositivo_editar.value
+  var descricao = descricao_dispositivo_editar.value
+  var localidade = localidadesDispositivo_editar.value
+
+  fetch("/dispositivo/editar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id_dispositivoServer: dispositivoID,
+      nomeServer: nome,
+      descricaoServer: descricao,
+      localidadeServer: localidade
+    })
+  }).then(function (resposta) {
+    if (resposta.status == 200) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Dispositivo editado com sucesso!'
+      })
+      modalEditarDispositivo.style.display = 'none'
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+  })
+}
+
+function fecharModalEditar() {
+  modalEditarDispositivo.style.display = 'none'
 }
 
 /* função para o editar o shopping e o usuario */
@@ -408,20 +534,20 @@ function showModalNewUser() {
 }
 
 async function novoAcesso() {
-    if (modalNovoAcesso.style.display == 'none') {
-  
-      var id_shopping = sessionStorage.ID_SHOPPING
-  
-      if (id_shopping) {
-        await fetch(`/localidade/listar?idShopping=${id_shopping}`)
-          .then(data => data.json())
-          
-            
-      }
-    } else {
-      modalNovoAcesso.style.display = 'none'
+  if (modalNovoAcesso.style.display == 'none') {
+
+    var id_shopping = sessionStorage.ID_SHOPPING
+
+    if (id_shopping) {
+      await fetch(`/localidade/listar?idShopping=${id_shopping}`)
+        .then(data => data.json())
+
+
     }
+  } else {
+    modalNovoAcesso.style.display = 'none'
   }
+}
 
 function editarAcesso() {
   alert('editar acesso')

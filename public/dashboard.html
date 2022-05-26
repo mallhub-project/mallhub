@@ -23,14 +23,14 @@
   <script src="js/grafico.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 
-   <!--FERRAMENTA HELPDESK FRESHWORK-->
-   <script>
+  <!--FERRAMENTA HELPDESK FRESHWORK-->
+  <script>
     window.fwSettings = {
-        'widget_id': 73000003138
+      'widget_id': 73000003138
     };
     !function () { if ("function" != typeof window.FreshworksWidget) { var n = function () { n.q.push(arguments) }; n.q = [], window.FreshworksWidget = n } }() 
-</script>
-<script type='text/javascript' src='https://widget.freshworks.com/widgets/73000003138.js' async defer></script>
+  </script>
+  <script type='text/javascript' src='https://widget.freshworks.com/widgets/73000003138.js' async defer></script>
 </head>
 
 <body onload="validarSessao(), listarDispositivo(), showAlerta(false), obterDadosGrafico(sessionStorage.ID_SHOPPING)">
@@ -77,7 +77,8 @@
             </div>
           </div>
           <div class="shoping" id="nomeShopping"></div>
-          <div><img src="img/imgens-dashboard/f_mallhub-icon.svg" alt="Logo mallhub" style="border-radius: 100px;"></div>
+          <div><img src="img/imgens-dashboard/f_mallhub-icon.svg" alt="Logo mallhub" style="border-radius: 100px;">
+          </div>
         </div>
       </div>
 
@@ -151,15 +152,27 @@
               <h2>Descrição do Dispositivo:</h2>
               <input class="dash_input_info" id="descricao_dispositivo" placeholder="Descrição">
 
-              <h2>Setor</h2>
-              <select id="setorDispositivo">
-              </select>
-
               <h2>Localidade</h2>
               <select id="localidadesDispositivo">
               </select>
             </div>
-            <button onclick="SalvarDispositivo()" id="botao_salvarDispositivo">Salvar Dispositivo</button>
+            <button onclick="criar_dispositivo()" id="botao_salvarDispositivo">Salvar Dispositivo</button>
+          </div>
+
+          <div id="modalEditarDispositivo" style="display: none;">
+            <div class="buttonClose" onclick="fecharModalEditar()">X</div>
+            <div class="box">
+              <h2>Nome Dispositivo:</h2>
+              <input class="dash_input_info" id="nome_dispositivo_editar" placeholder="Nome">
+
+              <h2>Descrição do Dispositivo:</h2>
+              <input class="dash_input_info" id="descricao_dispositivo_editar" placeholder="Descrição">
+
+              <h2>Localidade</h2>
+              <select id="localidadesDispositivo_editar">
+              </select>
+            </div>
+            <button onclick="openModalEditar()" id="botao_salvarDispositivo_editar">Salvar Dispositivo</button>
           </div>
 
           <div class="dash_topo">
@@ -213,7 +226,7 @@
 
 
 
-        
+
 
 
         <div id="divAcessos" style="display: none;">
@@ -223,13 +236,13 @@
             <div class="box">
               <h2>Nome:</h2>
               <input class="dash_input_info" id="nome_acesso" placeholder="Nome">
-  
+
               <h2>Email:</h2>
               <input class="dash_input_info" id="email_acesso" placeholder="Email">
-  
+
               <h2>CPF:</h2>
               <input class="dash_input_info" id="CPF_acesso" placeholder="CPF">
-  
+
               <h2>Senha:</h2>
               <input class="dash_input_info" id="senha_acesso" placeholder="senha">
             </div>
@@ -240,8 +253,8 @@
               <div class="dash_topo">
                 <div class="dash_h1">Novo acesso</div>
                 <div class="botaoNewAcess">
-                <button onclick="novoAcesso()" class="botaoNovoAcesso">Novo Acesso</button>
-              </div>
+                  <button onclick="novoAcesso()" class="botaoNovoAcesso">Novo Acesso</button>
+                </div>
               </div>
               <div>
                 <div class="dash_item">

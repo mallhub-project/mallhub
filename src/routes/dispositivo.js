@@ -7,6 +7,10 @@ router.get("/listar", function (req, res) {
     dispositivoController.listar(req, res);
 });
 
+router.get("/listar-por-id", function (req, res) {
+    dispositivoController.listarPorId(req, res);
+});
+
 router.post("/editar", function (req, res) {
     dispositivoController.editar(req, res);
 });
