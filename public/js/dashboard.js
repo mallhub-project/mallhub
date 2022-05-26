@@ -347,43 +347,50 @@ function listarDispositivo() {
   })
 }
 
-function openModalEditar(id_dispositivo) {
-  var dispositivo = id_dispositivo
-  console.log(dispositivo, "dispositivo antes do if")
+async function openModalEditar(id_dispositivo) {
   var id_shopping = sessionStorage.ID_SHOPPING
 
-  if (modalEditarDispositivo.style.display == 'none') {
-    if (id_dispositivo && id_shopping) {
-      localidadesDispositivo_editar.innerHTML = '<option value="0">Selecione a localidade</option>'
-      fetch(`/localidade/listar?idShopping=${id_shopping}`)
-        .then(data => data.json())
-        .then((data) => {
-          for (var posicao = 0; posicao < data.length; posicao++) {
-            localidadesDispositivo_editar.innerHTML += `<option value="${data[posicao].id_localidade}">${data[posicao].nome}</option>`
-          }
-        })
-      fetch(`/dispositivo/listar-por-id?idDispositivo=${id_dispositivo}`)
-        .then(function (resposta) {
-          if (resposta.ok) {
-            resposta.json().then(function (resposta) {
-              console.log(resposta, "resposta do open modal editar")
-              nome_dispositivo_editar.value = resposta[0].nome
-              descricao_dispositivo_editar.value = resposta[0].descricao
-              localidadesDispositivo_editar.value = resposta[0].fk_localidade
-            });
-          }
-        })
-      modalEditarDispositivo.style.display = ''
-    }
-  } else {
-    console.log(dispositivo, "antes da função")
-    editDispositivo(dispositivo)
+  if (id_dispositivo && id_shopping) {
+    modalEditarDispositivo.innerHTML = `
+    <div class="buttonClose" onclick="fecharModalEditar()">X</div>
+          <div class="box">
+            <h2>Nome Dispositivo:</h2>
+            <input class="dash_input_info" id="nome_dispositivo_editar" placeholder="Nome">
+
+            <h2>Descrição do Dispositivo:</h2>
+            <input class="dash_input_info" id="descricao_dispositivo_editar" placeholder="Descrição">
+
+            <h2>Localidade</h2>
+            <select id="localidadesDispositivo_editar">
+            </select>
+          </div>
+          <button onclick="editDispositivo(${id_dispositivo})" id="botao_salvarDispositivo_editar">Salvar Dispositivo</button>
+    `
+    localidadesDispositivo_editar.innerHTML += '<option value="0">Selecione a localidade</option>'
+    await fetch(`/localidade/listar?idShopping=${id_shopping}`)
+      .then(data => data.json())
+      .then((data) => {
+        for (var posicao = 0; posicao < data.length; posicao++) {
+          localidadesDispositivo_editar.innerHTML += `<option value="${data[posicao].id_localidade}">${data[posicao].nome}</option>`
+        }
+      })
+    await fetch(`/dispositivo/listar-por-id?idDispositivo=${id_dispositivo}`)
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (resposta) {
+            console.log(resposta, "resposta do open modal editar")
+            nome_dispositivo_editar.value = resposta[0].nome
+            descricao_dispositivo_editar.value = resposta[0].descricao
+            localidadesDispositivo_editar.value = resposta[0].fk_localidade
+          });
+        }
+      })
+    modalEditarDispositivo.style.display = ''
   }
 }
 
 function editDispositivo(id_dispositivo) {
-  var dispositivoID = id_dispositivo
-  console.log(dispositivoID, "ID do dispositivo no editar")
+  console.log(id_dispositivo, "id no editar")
   var nome = nome_dispositivo_editar.value
   var descricao = descricao_dispositivo_editar.value
   var localidade = localidadesDispositivo_editar.value
@@ -394,7 +401,7 @@ function editDispositivo(id_dispositivo) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      id_dispositivoServer: dispositivoID,
+      id_dispositivoServer: id_dispositivo,
       nomeServer: nome,
       descricaoServer: descricao,
       localidadeServer: localidade

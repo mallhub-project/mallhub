@@ -95,6 +95,7 @@ function apagar(req, res) {
 }
 
 function editar(req, res) {
+    console.log(req.body.id_dispositivoServer, "id na controller")
     var id_dispositivo = req.body.id_dispositivoServer
     var nome = req.body.nomeServer;
     var descricao = req.body.descricaoServer;
