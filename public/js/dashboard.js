@@ -25,6 +25,7 @@ function Inicio() {
   divDispositivos.style.display = 'none'
   divPerfil.style.display = 'none'
   divAcessos.style.display = 'none'
+  divAjuda.style.display = 'none'
 
   inicioNavbar.style.backgroundColor = '#000'
   inicioNavbar.style.color = '#FFF'
@@ -40,6 +41,11 @@ function Inicio() {
   perfilNavbar.style.color = ''
   perfilNavbar.style.borderRadius = ''
   perfilIcon.style.filter = 'invert(0%)'
+
+  ajudaNavbar.style.backgroundColor = ''
+  ajudaNavbar.style.color = ''
+  ajudaNavbar.style.borderRadius = ''
+  ajudaIcon.style.filter = 'invert(0%)'
 
   acessosNavbar.style.backgroundColor = ''
   acessosNavbar.style.color = ''
@@ -70,6 +76,7 @@ function Dispositivos() {
   divDispositivos.style.display = ''
   divPerfil.style.display = 'none'
   divAcessos.style.display = 'none'
+  divAjuda.style.display = 'none'
 
   inicioNavbar.style.backgroundColor = 'transparent'
   inicioNavbar.style.color = 'black'
@@ -86,6 +93,11 @@ function Dispositivos() {
   perfilNavbar.style.borderRadius = ''
   perfilIcon.style.filter = 'invert(0%)'
 
+  ajudaNavbar.style.backgroundColor = ''
+  ajudaNavbar.style.color = ''
+  ajudaNavbar.style.borderRadius = ''
+  ajudaIcon.style.filter = 'invert(0%)'
+
   acessosNavbar.style.backgroundColor = ''
   acessosNavbar.style.color = ''
   acessosNavbar.style.borderRadius = ''
@@ -97,6 +109,7 @@ function Perfil() {
   divDispositivos.style.display = 'none'
   divPerfil.style.display = ''
   divAcessos.style.display = 'none'
+  divAjuda.style.display = 'none'
 
   inicioNavbar.style.backgroundColor = 'transparent'
   inicioNavbar.style.color = 'black'
@@ -112,6 +125,11 @@ function Perfil() {
   perfilNavbar.style.color = '#FFF'
   perfilNavbar.style.borderRadius = '20px'
   perfilIcon.style.filter = 'invert(100%)'
+
+  ajudaNavbar.style.backgroundColor = ''
+  ajudaNavbar.style.color = ''
+  ajudaNavbar.style.borderRadius = ''
+  ajudaIcon.style.filter = 'invert(0%)'
 
   acessosNavbar.style.backgroundColor = ''
   acessosNavbar.style.color = ''
@@ -135,6 +153,7 @@ function Acessos() {
   divDispositivos.style.display = 'none'
   divPerfil.style.display = 'none'
   divAcessos.style.display = ''
+  divAjuda.style.display = 'none'
 
   inicioNavbar.style.backgroundColor = 'transparent'
   inicioNavbar.style.color = 'black'
@@ -151,10 +170,48 @@ function Acessos() {
   perfilNavbar.style.borderRadius = ''
   perfilIcon.style.filter = 'invert(0%)'
 
+  ajudaNavbar.style.backgroundColor = ''
+  ajudaNavbar.style.color = ''
+  ajudaNavbar.style.borderRadius = ''
+  ajudaIcon.style.filter = 'invert(0%)'
+
   acessosNavbar.style.backgroundColor = '#000'
   acessosNavbar.style.color = '#fff'
   acessosNavbar.style.borderRadius = '20px'
   acessoIcon.style.filter = 'invert(100%)'
+}
+
+function ajuda() {
+  divInicio.style.display = 'none'
+  divDispositivos.style.display = 'none'
+  divPerfil.style.display = 'none'
+  divAcessos.style.display = 'none'
+  divAjuda.style.display = ''
+
+  inicioNavbar.style.backgroundColor = 'transparent'
+  inicioNavbar.style.color = 'black'
+  inicioNavbar.style.borderRadius = '0'
+  inicioIcon.style.filter = 'invert(0%)'
+
+  dispositivoNavbar.style.backgroundColor = ''
+  dispositivoNavbar.style.color = ''
+  dispositivoNavbar.style.borderRadius = ''
+  dispositivoIcon.style.filter = 'invert(0%)'
+
+  perfilNavbar.style.backgroundColor = ''
+  perfilNavbar.style.color = ''
+  perfilNavbar.style.borderRadius = ''
+  perfilIcon.style.filter = 'invert(0%)'
+
+  acessosNavbar.style.backgroundColor = ''
+  acessosNavbar.style.color = ''
+  acessosNavbar.style.borderRadius = ''
+  acessoIcon.style.filter = 'invert(0%)'
+
+  ajudaNavbar.style.backgroundColor = '#000'
+  ajudaNavbar.style.color = '#fff'
+  ajudaNavbar.style.borderRadius = '20px'
+  ajudaIcon.style.filter = 'invert(100%)'
 }
 
 function loggout() {
@@ -661,6 +718,7 @@ function criarLocalidade() {
   })
   modalCriarLocalidade.style.display = ''
 }
+
 function cadastrarLocalidade() {
   var nome = nome_localidade.value
   var descricao = descricao_localidade.value
