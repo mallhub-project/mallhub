@@ -174,9 +174,37 @@
             <button onclick="openModalEditar()" id="botao_salvarDispositivo_editar">Salvar Dispositivo</button>
           </div>
 
+          <div id="modalCriarSetor" style="display: none;">
+            <div onclick="fecharCriarSetor()" class="buttonClose" style="margin-left: auto;">X</div>
+            <h2 style="margin-right: auto;">Nome do setor:</h2>
+            <input class="dash_input_info" id="nome_setor" placeholder="Nome">
+            <h2 style="margin-right: auto;">Descrição do setor:</h2>
+            <input class="dash_input_info" id="descricao_setor" placeholder="Descrição">
+            <button onclick="cadastrarSetor()" id="botao_salvarDispositivo">Salvar Setor</button>
+          </div>
+
+          <div id="modalCriarLocalidade" style="display: none; margin-bottom: 50px;">
+            <div onclick="fecharCriarLocalidade()" class="buttonClose" style="margin-left: auto;">X</div>
+            <h2 style="margin-right: auto;">Nome da localidade:</h2>
+            <input class="dash_input_info" id="nome_localidade" placeholder="Nome">
+
+            <h2 style="margin-right: auto;">Descrição da localidade:</h2>
+            <input class="dash_input_info" id="descricao_localidade" placeholder="Descrição">
+
+            <h2 style="margin-right: auto;">Setor</h2>
+            <select id="setor_localidade_select"></select>
+
+            <button onclick="cadastrarLocalidade()" id="botao_salvarDispositivo">Salvar Localidade</button>
+          </div>
+
           <div class="dash_topo">
             <h1 class="dash_h1">Seus Dispositivos</h1>
             <button onclick="novoDispositivo()">Novo Dispositivo</button>
+          </div>
+
+          <div id="buttonsLocalidadesetor">
+            <button onclick="criarSetor()">Adicionar setor</button>
+            <button onclick="criarLocalidade()">Adicionar localidade</button>
           </div>
 
           <div id="listaDispositivos"></div>

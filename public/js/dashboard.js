@@ -588,3 +588,130 @@ function mascaraCpf(valor) {
 function mascaraCnpj(valor) {
   return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
 }
+
+function criarSetor() {
+  modalCriarSetor.style.display = ''
+}
+
+function cadastrarSetor() {
+  var nome = nome_setor.value
+  var descricao = descricao_setor.value
+  var shopping = sessionStorage.ID_SHOPPING
+
+  fetch("/setor/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nomeServer: nome,
+      descricaoServer: descricao,
+      idShoppingServer: shopping
+    })
+  }).then(function (resposta) {
+    if (resposta.status == 200 || resposta.status == 204) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Setor cadastrado com sucesso!'
+      })
+      modalCriarSetor.style.display = 'none'
+    } else {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Setor não cadastrado!'
+      })
+      modalCriarSetor.style.display = 'none'
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+  })
+}
+
+function fecharCriarSetor() {
+  modalCriarSetor.style.display = 'none'
+}
+
+function criarLocalidade() {
+  var id_shopping = sessionStorage.ID_SHOPPING
+  setor_localidade_select.innerHTML = `<option>Selecione o setor</option>`
+  fetch(`/setor/listar?idShopping=${id_shopping}`)
+  .then(function (resposta) {
+    if (resposta.ok) {
+      resposta.json().then(function (resposta) {
+        console.log(resposta)
+        for (var posicao = 0; posicao < resposta.length; posicao++) {
+          setor_localidade_select.innerHTML += `<option value="${resposta[posicao].id_setor}">${resposta[posicao].nome}</option>`
+        }
+      });
+    }
+  })
+  modalCriarLocalidade.style.display = ''
+}
+function cadastrarLocalidade() {
+  var nome = nome_localidade.value
+  var descricao = descricao_localidade.value
+  var setor = setor_localidade_select.value
+
+  console.log(nome, descricao, setor)
+
+  fetch("/localidade/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nomeServer: nome,
+      descricaoServer: descricao,
+      idSetorServer: setor
+    })
+  }).then(function (resposta) {
+    if (resposta.status == 200 || resposta.status == 204) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Localidade cadastrada com sucesso!'
+      })
+      modalCriarLocalidade.style.display = 'none'
+    } else {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Localidade não cadastrada!'
+      })
+      modalCriarLocalidade.style.display = 'none'
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+  })
+
+}
+
+function fecharCriarLocalidade() {
+  modalCriarLocalidade.style.display = 'none'
+}
