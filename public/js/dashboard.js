@@ -149,6 +149,7 @@ function Perfil() {
 }
 
 function Acessos() {
+  listarAcesso()
   divInicio.style.display = 'none'
   divDispositivos.style.display = 'none'
   divPerfil.style.display = 'none'
@@ -597,44 +598,101 @@ function showModalNewUser() {
   modalCadastroAcesso.style.display == 'flex'
 }
 
-async function novoAcesso() {
-  if (modalNovoAcesso.style.display == 'none') {
+async function listarAcesso() {
+  listarAcesso_lista.innerHTML = ''
+  var id_shopping = sessionStorage.ID_SHOPPING
+  fetch(`/acesso/listar?idShopping=${id_shopping}`).then(function (resposta) {
+    if (resposta.ok) {
+      resposta.json().then(function (resposta) {
+        console.log(resposta)
+        var user = ''
+        for (var posicao = 0; posicao < resposta.length; posicao++) {
+          if (resposta[posicao].fk_superior == 0 || resposta[posicao].fk_superior == null) {
+            user = 'Admin'
+          } else {
+            user = 'usuario'
+          }
+          listarAcesso_lista.innerHTML += `
+            <div class="dash_item">
+              <p class="dash_p">Nome: <span id="nomeUsuarioAcesso">${resposta[posicao].nome}</span></p>
+              <p class="dash_p" style="margin-right: auto;">Nivel: <span>${user}</span></p>
+            </div>
+          `
+        }
 
-    var id_shopping = sessionStorage.ID_SHOPPING
-
-    if (id_shopping) {
-      await fetch(`/localidade/listar?idShopping=${id_shopping}`)
-        .then(data => data.json())
-
-
+      });
+    } else {
+      console.log("Houve um erro ao tentar realizar o login!");
+      resposta.text().then(texto => {
+        console.error(texto);
+      });
     }
-  } else {
-    modalNovoAcesso.style.display = 'none'
+  })
+}
+
+function abriModalAcesso() {
+  modalNovoAcesso.style.display = ''
+}
+
+function cadastrarAcesso() {
+  var nome = nome_acesso.value
+  var email = email_acesso.value
+  var cpf = CPF_acesso.value
+  var senha = senha_acesso.value
+  var fk_superior = sessionStorage.ID_USUARIO
+  var fk_shopping = sessionStorage.ID_SHOPPING
+
+  if(nome.length, email.length, cpf.length = 11, senha.length, fk_superior, fk_shopping) {
+    fetch("/acesso/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        emailServer: email,
+        cpfServer: cpf,
+        cargoServer: '',
+        senhaServer: senha,
+        fk_superiorServer: fk_superior,
+        fk_shoppingServer: fk_shopping
+      })
+    }).then(function (resposta) {
+      if (resposta.status == 200 || resposta.status == 204) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Acesso cadastrado com sucesso!'
+        })
+        modalCriarSetor.style.display = 'none'
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        })
+        Toast.fire({
+          icon: 'error',
+          title: 'Acesso não cadastrado!'
+        })
+        modalCriarSetor.style.display = 'none'
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
   }
 }
 
-function editarAcesso() {
-  alert('editar acesso')
-}
-
-function deleteAcesso() {
-  Swal.fire({
-    title: 'Deseja excluir?',
-    text: "Você não poderá reverter isso",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim, excluir!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'OK!',
-        'Acesso excluido com sucesso!',
-        'success'
-      )
-    }
-  })
+function fecharNovoAcesso() {
+  modalNovoAcesso.style.display = 'none'
 }
 
 /*  função de formatar cpf e cnpj */
@@ -645,6 +703,8 @@ function mascaraCpf(valor) {
 function mascaraCnpj(valor) {
   return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
 }
+
+// setor
 
 function criarSetor() {
   modalCriarSetor.style.display = ''
@@ -702,20 +762,22 @@ function fecharCriarSetor() {
   modalCriarSetor.style.display = 'none'
 }
 
+// localidade
+
 function criarLocalidade() {
   var id_shopping = sessionStorage.ID_SHOPPING
   setor_localidade_select.innerHTML = `<option>Selecione o setor</option>`
   fetch(`/setor/listar?idShopping=${id_shopping}`)
-  .then(function (resposta) {
-    if (resposta.ok) {
-      resposta.json().then(function (resposta) {
-        console.log(resposta)
-        for (var posicao = 0; posicao < resposta.length; posicao++) {
-          setor_localidade_select.innerHTML += `<option value="${resposta[posicao].id_setor}">${resposta[posicao].nome}</option>`
-        }
-      });
-    }
-  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (resposta) {
+          console.log(resposta)
+          for (var posicao = 0; posicao < resposta.length; posicao++) {
+            setor_localidade_select.innerHTML += `<option value="${resposta[posicao].id_setor}">${resposta[posicao].nome}</option>`
+          }
+        });
+      }
+    })
   modalCriarLocalidade.style.display = ''
 }
 

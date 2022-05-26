@@ -23,7 +23,6 @@ function obterDadosGrafico(id_shopping) {
   }
 
   fetch(`/medidas/ultimas/${id_shopping}`).then(function (response) {
-    console.log(response)
     if (response.ok) {
       response.json().then(function (resposta) {
         // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);

@@ -256,64 +256,36 @@
 
         <div id="divAcessos" style="display: none;">
           <div id="modalNovoAcesso" style="display: none;">
-            <button class="buttonClose" onclick="novoAcesso()">x</button>
-            <div class="box">
-              <h2>Nome:</h2>
-              <input class="dash_input_info" id="nome_acesso" placeholder="Nome">
-
-              <h2>Email:</h2>
-              <input class="dash_input_info" id="email_acesso" placeholder="Email">
-
-              <h2>CPF:</h2>
-              <input class="dash_input_info" id="CPF_acesso" placeholder="CPF">
-
-              <h2>Senha:</h2>
-              <input class="dash_input_info" id="senha_acesso" placeholder="senha">
-            </div>
-            <button onclick="SalvarAcesso()" id="botao_salvarAcesso">Salvar Acesso</button>
+              <button class="buttonClose" onclick="fecharNovoAcesso()">x</button>
+              <div class="box">
+                  <h2>Nome:</h2>
+                  <input class="dash_input_info" id="nome_acesso" placeholder="Nome">
+      
+                  <h2>Email:</h2>
+                  <input class="dash_input_info" id="email_acesso" placeholder="Email">
+      
+                  <h2>CPF:</h2>
+                  <input class="dash_input_info" id="CPF_acesso" placeholder="CPF">
+      
+                  <h2>Senha:</h2>
+                  <input class="dash_input_info" id="senha_acesso" placeholder="senha">
+              </div>
+              <button onclick="cadastrarAcesso()" id="botao_salvarAcesso">Salvar Acesso</button>
           </div>
           <div class="dashs">
-            <div class="dash_esquerda_acesso">
-              <div class="dash_topo">
-                <div class="dash_h1">Novo acesso</div>
-                <div class="botaoNewAcess">
-                  <button onclick="novoAcesso()" class="botaoNovoAcesso">Novo Acesso</button>
-                </div>
+              <div class="dash_esquerda_acesso">
+                  <div class="dash_topo">
+                      <div class="dash_h1">Novo acesso</div>
+                      <div class="botaoNewAcess">
+                          <button onclick="abriModalAcesso()" class="botaoNovoAcesso">Novo Acesso</button>
+                      </div>
+                  </div>
+                  <div>
+                      <div id="listarAcesso_lista" style="display: flex; flex-direction: column;"></div>
+                  </div>
               </div>
-              <div>
-                <div class="dash_item">
-                  <div>
-                    <p class="dash_p">Nome: <span>Naomi Lemman</span></p>
-                    <p class="dash_p">Nivel: <span>Admin</span></p>
-                  </div>
-                  <div>
-                    <button onclick="editDispositivo()">
-                      <img src="img/editar.svg">
-                    </button>
-                    <button onclick="deleteDispositivo()">
-                      <img src="img/lixeira.svg">
-                    </button>
-                  </div>
-                </div>
-
-                <div class="dash_item">
-                  <div>
-                    <p class="dash_p">Nome: <span>Victor Lopes</span></p>
-                    <p class="dash_p">Nivel: <span>Usuario</span></p>
-                  </div>
-                  <div>
-                    <button onclick="editDispositivo()">
-                      <img src="img/editar.svg">
-                    </button>
-                    <button onclick="deleteDispositivo()">
-                      <img src="img/lixeira.svg">
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+      </div>
 
         <div id="divAjuda" style="display: none;">
           <img src="img/roof.png">

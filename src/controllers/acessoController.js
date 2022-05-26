@@ -2,35 +2,6 @@ var acessoModel = require("../models/acessoModel");
 
 var sessoes = [];
 
-// function deletar(req, res) {
-
-//     var id_usuario = req.body.id_usuarioServer
-
-//     if (id_usuario == undefined) {
-//         res.status(400).send("Seu id está indefinido!");
-//     } else {
-//        acessoModel.deletar(id_usuario)
-//             .then(
-//                 function (resultado) {
-//                     res.json(resultado);
-//                 }
-//             ).catch(
-//                 function (erro) {
-//                     console.log(erro);
-//                     console.log(
-//                         "\nHouve um erro ao realizar o cadastro! Erro: ",
-//                         erro.sqlMessage
-//                     );
-//                     res.status(500).json(erro.sqlMessage);
-//                 }
-//             );
-//     }
-// }
-
-
-
-
-
 function listar(req, res) {
     var id_shopping = req.query.idShopping
     acessoModel.listar(id_shopping)
@@ -58,10 +29,21 @@ function cadastrar(req, res) {
     var fk_superior = req.body.fk_superiorServer;
     var fk_shopping = req.body.fk_shoppingServer;
 
-    if (nivel == undefined) {
-        res.status(400).send("Seu nivel está undefined!");
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está indefinido!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está indefinido!");
+    } else if (cpf == undefined) {
+        res.status(400).send("Seu cpf está indefinido!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está indefinido!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está indefinido!");
+    } else if (fk_superior == undefined) {
+        res.status(400).send("Seu superior está indefinido!");
+    } else if (fk_shopping == undefined) {
+        res.status(400).send("Seu shopping está indefinido!");
     } else {
-
         acessoModel.cadastrar(nome, email, cpf, senha, cargo, fk_superior, fk_shopping)
             .then(
                 function (resultado) {
