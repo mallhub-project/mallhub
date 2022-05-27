@@ -365,13 +365,13 @@ body {
     margin-top: 20px;
 }
 
-.dash_p {
+.dash_p, .dash_p_dispositivo {
     margin: 0 20px;
     padding-top: 10px;
     color: black;
 }
 
-.dash_p span {
+.dash_p span, .dash_p_dispositivo span {
     font-weight: 400;
 }
 

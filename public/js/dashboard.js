@@ -382,7 +382,7 @@ function listarDispositivo() {
           listaDispositivos.innerHTML += `
               <div id="${resposta[posicao].id_dispositivo}" class="dash_item">
                 <div>
-                  <p class="dash_p">${resposta[posicao].nome}</p>
+                  <p class="dash_p_dispositivo">${resposta[posicao].nome}</p>
                 </div>
                 <div>
                   <button onclick="openModalEditar(${resposta[posicao].id_dispositivo})">
