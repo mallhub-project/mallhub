@@ -235,7 +235,8 @@ async function showAlerta(openModal) {
             <div class="alertaItem">
               <p>${data[posicao].descricao}</p>
               <div>
-                <span>${data[posicao].data_hora}</span>
+                <span style="margin: 0;">Data: ${data[posicao].dia}/ ${data[posicao].mes} / ${data[posicao].ano}</span>
+                <span>${data[posicao].hora}:${data[posicao].minuto}</span>
               </div>
             </div>
           `

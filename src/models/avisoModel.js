@@ -2,7 +2,8 @@ var database = require("../database/config");
 
 function listar(id_shopping) {
     var instrucao = `
-    SELECT alerta.id_alerta, alerta.data_hora, alerta.descricao, alerta.tipo_alerta, 
+    SELECT alerta.id_alerta, day(alerta.data_hora) as 'dia', month(alerta.data_hora) as 'mes', 
+    year(alerta.data_hora) as 'ano', hour(alerta.data_hora) as 'hora', minute(alerta.data_hora) as 'minuto', alerta.descricao, alerta.tipo_alerta, 
     alerta.fk_dispositivo FROM shopping 
     JOIN setor ON shopping.id_shopping = setor.fk_shopping
     JOIN localidade ON setor.id_setor = localidade.fk_setor
