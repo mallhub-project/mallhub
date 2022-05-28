@@ -226,14 +226,17 @@ async function showAlerta(openModal) {
   listarAlerta.innerHTML = ''
   var id_shopping = sessionStorage.ID_SHOPPING
   if (id_shopping) {
-    console.log(id_shopping)
     await fetch(`/aviso/listar?idShopping=${id_shopping}`)
       .then(data => data.json()).then((data) => {
-        quantidadeAlertas.innerHTML = `${data.length}`
         for (var posicao = 0; posicao < data.length; posicao++) {
+          var corTexto = 'green'
+          if (data[posicao].tipoAlertaNome == 'critico') {
+            corTexto = 'red'
+          }
           listarAlerta.innerHTML += `
             <div class="alertaItem">
-              <p>${data[posicao].descricao}</p>
+              <p>${(data[posicao].nome).toUpperCase()}</p>
+              <p style="margin: 0; font-size: 14px; color: ${corTexto};">${data[posicao].descricao}</p>
               <div>
                 <span style="margin: 0;">Data: ${data[posicao].dia}/ ${data[posicao].mes} / ${data[posicao].ano}</span>
                 <span>${data[posicao].hora}:${data[posicao].minuto}</span>
@@ -241,8 +244,10 @@ async function showAlerta(openModal) {
             </div>
           `
         }
+
         if (openModal) {
           idShowAlerta.style.display = ''
+          quantidadeAlertas.innerHTML = 0
         }
       }).catch(function () {
         idShowAlerta.style.display = 'none'
@@ -437,7 +442,6 @@ async function openModalEditar(id_dispositivo) {
       .then(function (resposta) {
         if (resposta.ok) {
           resposta.json().then(function (resposta) {
-            console.log(resposta, "resposta do open modal editar")
             nome_dispositivo_editar.value = resposta[0].nome
             descricao_dispositivo_editar.value = resposta[0].descricao
             localidadesDispositivo_editar.value = resposta[0].fk_localidade
@@ -449,7 +453,6 @@ async function openModalEditar(id_dispositivo) {
 }
 
 function editDispositivo(id_dispositivo) {
-  console.log(id_dispositivo, "id no editar")
   var nome = nome_dispositivo_editar.value
   var descricao = descricao_dispositivo_editar.value
   var localidade = localidadesDispositivo_editar.value
@@ -514,11 +517,9 @@ async function salvarShopping() {
       if (resposta.ok) {
 
         Swal.fire('OK!', 'Informações do shopping atualizado com sucesso!', 'success')
-        console.log(resposta)
         await fetch(`/usuarios/listar-shopping/${idShopping}`).then(function (resultado) {
           return resultado.json()
         }).then(function (data) {
-          console.log(data)
           window.sessionStorage.removeItem('RAZAO_SOCIAL', 'NOME_FANTASIA', 'CNPJ')
           window.sessionStorage.setItem('RAZAO_SOCIAL', data.razao_social)
           window.sessionStorage.setItem('NOME_FANTASIA', data.nome_fantasia)
@@ -566,11 +567,9 @@ async function salvarUsuario() {
       if (resposta.ok) {
 
         Swal.fire('OK!', 'Perfil atualizado com sucesso!', 'success')
-        console.log(resposta)
         await fetch(`/usuarios/listar-usuario/${idUsuario}`).then(function (resultado) {
           return resultado.json()
         }).then(function (data) {
-          console.log(data)
           window.sessionStorage.removeItem('NOME_USUARIO', 'CPF_USUARIO', 'CARGO_USUARIO', 'TELEFONE_USUARIO')
           window.sessionStorage.setItem('NOME_USUARIO', data.nome)
           window.sessionStorage.setItem('CPF_USUARIO', data.cpf)
@@ -605,7 +604,6 @@ async function listarAcesso() {
   fetch(`/acesso/listar?idShopping=${id_shopping}`).then(function (resposta) {
     if (resposta.ok) {
       resposta.json().then(function (resposta) {
-        console.log(resposta)
         var user = ''
         for (var posicao = 0; posicao < resposta.length; posicao++) {
           if (resposta[posicao].fk_superior == 0 || resposta[posicao].fk_superior == null) {
@@ -772,7 +770,6 @@ function criarLocalidade() {
     .then(function (resposta) {
       if (resposta.ok) {
         resposta.json().then(function (resposta) {
-          console.log(resposta)
           for (var posicao = 0; posicao < resposta.length; posicao++) {
             setor_localidade_select.innerHTML += `<option value="${resposta[posicao].id_setor}">${resposta[posicao].nome}</option>`
           }
@@ -786,8 +783,6 @@ function cadastrarLocalidade() {
   var nome = nome_localidade.value
   var descricao = descricao_localidade.value
   var setor = setor_localidade_select.value
-
-  console.log(nome, descricao, setor)
 
   fetch("/localidade/cadastrar", {
     method: "POST",
@@ -852,24 +847,89 @@ function quantidadeDispositivo() {
     });
 }
 
-function showAlertaDashboard() {
-  var dispositivo_alerta = [1]
-  //qtd_dispositivo_ideal.innerHTML = 2
-  
-  if (dispositivo_alerta.length) {
-    qtd_dispositivo_alerta.innerHTML = dispositivo_alerta.length
+var lista_de_dispositivo = []
 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true,
-    })
-    Toast.fire({
-      icon: 'warning',
-      title: `<b>VOCÊ TEM DISPOSITIVOS EM ALERTA</b>!
-      <button style="background: transparent; cursor: pointer; border: 0px; color: red; margin: 10px auto;">VER DETALHES</button>`
-    })
+
+let validarAlerta;
+
+async function showAlertaDashboard() {
+  var dispositivo_critico = 0
+  var dispositivo_alerta = 0
+  var dispositivo_ideal = 0
+  var dispositivo_bom = 0
+  var dispositivo_otimo = 0
+
+  await fetch(`/aviso/listar-metricas`)
+    .then(data => data.json()).then((data) => {
+      if (data.length) {
+        lista_de_dispositivo = data
+      }
+    }).catch(function (e) {
+      console.log(e)
+    });
+
+  if (lista_de_dispositivo.length == 3) {
+    for (var posicao = 0; posicao < lista_de_dispositivo.length; posicao++) {
+      var fk_dispositivo = lista_de_dispositivo[posicao].id_dispositivo
+      var fk_tipoAlerta = 0
+
+      if (lista_de_dispositivo[posicao].totalPessoas >= 3000) {
+        dispositivo_otimo += 1
+        fk_tipoAlerta = 3
+      } else if (lista_de_dispositivo[posicao].totalPessoas >= 2000) {
+        dispositivo_bom += 1
+        fk_tipoAlerta = 3
+      } else if (lista_de_dispositivo[posicao].totalPessoas >= 1000) {
+        dispositivo_ideal += 1
+        fk_tipoAlerta = 2
+      } else if (lista_de_dispositivo[posicao].totalPessoas < 800) {
+        dispositivo_alerta += 1
+        fk_tipoAlerta = 1
+      } else if (lista_de_dispositivo[posicao].totalPessoas < 500) {
+        dispositivo_critico += 1
+        fk_tipoAlerta = 1
+      }
+
+      fetch("/aviso/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          tipoAlerta: fk_tipoAlerta,
+          id_dispositivo: fk_dispositivo
+        })
+      }).then(function (resposta) {
+        console.log(resposta)
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
   }
+
+  var conta = dispositivo_critico + dispositivo_alerta
+
+  if (conta > 0) {
+    exibirAlerta()
+  }
+  quantidadeAlertas.innerHTML = lista_de_dispositivo.length
+  qtd_dispositivo_alerta.innerHTML = conta
+  qtd_dispositivo_ideal.innerHTML = dispositivo_bom + dispositivo_otimo + dispositivo_ideal
+
+  validarAlerta = setInterval(() => showAlertaDashboard(), 900000);
+}
+
+function exibirAlerta() {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+  })
+  Toast.fire({
+    icon: 'warning',
+    title: `<b>VOCÊ TEM DISPOSITIVOS EM ALERTA</b>!
+    <button style="background: transparent; cursor: pointer; border: 0px; color: red; margin: 10px auto;"onclick="showAlerta(true)">VER DETALHES</button>`
+  })
 }

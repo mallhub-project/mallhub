@@ -36,17 +36,17 @@ function plotarGrafico(resposta, id_shopping) {
   const data = {
     labels: labels,
     datasets: [{
-      label: 'Alimenticio',
+      label: 'Dispositivo 1',
       backgroundColor: 'rgb(255, 0, 0)',
       borderColor: 'rgb(255, 0, 0)',
       data: [],
     },{
-      label: 'Moda',
+      label: 'Dispositivo 2',
       backgroundColor: 'blue',
       borderColor: 'blue',
       data: [],
     },{
-      label: 'Lacoste',
+      label: 'Dispositivo 3',
       backgroundColor: 'green',
       borderColor: 'green',
       data: [],
@@ -66,7 +66,7 @@ function plotarGrafico(resposta, id_shopping) {
       scales: {
         y: {
           beginAtZero: true,
-          max: 5000
+          max: 10000
         }
       }
     }
@@ -82,10 +82,12 @@ function plotarGrafico(resposta, id_shopping) {
     var registro = resposta[i];
     data.datasets[0].data.push(registro);
   }
+  
   for (i = 0; i < 17; i++) {
     var registro = resposta[i];
     data.datasets[1].data.push(registro);
   }
+
   for (i = 0; i < 17; i++) {
     var registro = resposta[i];
     data.datasets[2].data.push(registro);
@@ -128,7 +130,7 @@ function plotarGrafico(resposta, id_shopping) {
     data2.datasets[0].data.push(registro.TotalPessoas);
   }
 
-  console.log(JSON.stringify(data2));
+  //console.log(JSON.stringify(data2));
 
 
   const myChart2 = new Chart(
@@ -140,19 +142,17 @@ function plotarGrafico(resposta, id_shopping) {
 }
 
 function atualizarGrafico(id_shopping, data, myChart) {
-  console.log(myChart)
-  
   fetch(`/medidas/tempo-real/${id_shopping}`, { cache: 'no-store' }).then(function (response) {
-
     if (response.ok) {
-
       response.json().then(function (novoRegistro) {
-        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-        console.log(`Dados atuais do gráfico: ${novoRegistro[0].TotalPessoas}`);
-        console.log(`Dados atuais do gráfico: ${novoRegistro[1].TotalPessoas}`);
+        //console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        //console.log(`Dados atuais do gráfico: ${novoRegistro[0].TotalPessoas}`);
+        //console.log(`Dados atuais do gráfico: ${novoRegistro[1].TotalPessoas}`);
         // tirando e colocando valores no gráfico
         // data.labels.shift(); // apagar o primeiro
         // data.labels.push(novoRegistro[0].TotalPessoas); // incluir um novo momento
+
+        //console.log(novoRegistro, 'dados vindo do atualizar')
 
         data.datasets[0].data.shift();  // apagar o primeiro de umidade
         data.datasets[0].data.push(novoRegistro[0].TotalPessoas);

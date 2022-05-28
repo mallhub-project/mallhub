@@ -60,12 +60,17 @@ body {
 .modalAlerta {
     position: absolute;
     width: 350px;
+    max-height: 380px;
     padding: 20px;
     background-color: white;
     border-radius: 15px;
     margin-top: 30px;
     border: 1px solid #cfcfcf;
     overflow-y: auto;
+}
+
+.modalAlerta::-webkit-scrollbar {
+    display: none;
 }
 
 .alertaItem {

@@ -19,7 +19,6 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var descricao = req.body.descricao;
     var tipoAlerta = req.body.tipoAlerta
     var id_dispositivo = req.body.id_dispositivo
 
@@ -27,10 +26,8 @@ function cadastrar(req, res) {
         res.status(400).send("Seu ID está indefinido!");
     } else if (tipoAlerta == undefined) {
         res.status(400).send("O seu tipo de alerta está indefinido!");
-    } else if (descricao == undefined) {
-        res.status(403).send("A sua descricão está indefinid!");
     } else {
-        avisoModel.cadastrar(descricao, tipoAlerta, id_dispositivo)
+        avisoModel.cadastrar(tipoAlerta, id_dispositivo)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -46,7 +43,23 @@ function cadastrar(req, res) {
     }
 }
 
+function acharMetricasDispositivo(req, res) {
+    avisoModel.acharMetricasDispositivo()
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    acharMetricasDispositivo
 }
