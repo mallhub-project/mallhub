@@ -642,7 +642,7 @@ function cadastrarAcesso() {
   var fk_superior = sessionStorage.ID_USUARIO
   var fk_shopping = sessionStorage.ID_SHOPPING
 
-  if(nome.length, email.length, cpf.length = 11, senha.length, fk_superior, fk_shopping) {
+  if (nome.length, email.length, cpf.length = 11, senha.length, fk_superior, fk_shopping) {
     fetch("/acesso/cadastrar", {
       method: "POST",
       headers: {
@@ -834,4 +834,41 @@ function cadastrarLocalidade() {
 
 function fecharCriarLocalidade() {
   modalCriarLocalidade.style.display = 'none'
+}
+
+function quantidadeDispositivo() {
+  var id_shopping = sessionStorage.ID_SHOPPING
+  fetch(`/dispositivo/listar?idShopping=${id_shopping}`)
+    .then(data => data.json())
+    .then((data) => {
+      if (data.length) {
+        qtd_dispositivos_ativos.innerHTML = data.length
+      } else {
+        qtd_dispositivos_ativos.innerHTML = 0
+      }
+    }).catch(function (e) {
+      console.log(e)
+    });
+}
+
+function showAlertaDashboard() {
+  var dispositivo_alerta = [1]
+  //qtd_dispositivo_ideal.innerHTML = 2
+  
+  if (dispositivo_alerta.length) {
+    qtd_dispositivo_alerta.innerHTML = dispositivo_alerta.length
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+    })
+    Toast.fire({
+      icon: 'warning',
+      title: `<b>VOCÊ TEM DISPOSITIVOS EM ALERTA</b>!
+      <button style="background: transparent; cursor: pointer; border: 0px; color: red; margin: 10px auto;">VER DETALHES</button>`
+    })
+  }
 }

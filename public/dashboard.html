@@ -33,7 +33,7 @@
   <script type='text/javascript' src='https://widget.freshworks.com/widgets/73000003138.js' async defer></script>
 </head>
 
-<body onload="validarSessao(), listarDispositivo(), showAlerta(false), obterDadosGrafico(sessionStorage.ID_SHOPPING)">
+<body onload="validarSessao(), listarDispositivo(), showAlerta(false), obterDadosGrafico(sessionStorage.ID_SHOPPING), quantidadeDispositivo(), showAlertaDashboard()">
   <div class="container">
     <div class="painel">
       <div class="conteudo">
@@ -90,15 +90,15 @@
         <div id="divInicio">
           <div class="metricas">
             <div class="d_ativos">
-              <div>Dispositivos Ativos:<span>10</span></div>
+              <div>Dispositivos Ativos:<span id="qtd_dispositivos_ativos">0</span></div>
               <div>(Dispositivos ativos no sistema)</div>
             </div>
             <div class="d_alerta">
-              <div>Dispositivos Em Alerta:<span>3</span></div>
+              <div>Dispositivos Em Alerta:<span id="qtd_dispositivo_alerta">0</span></div>
               <div>(Abaixo da média estipulada)</div>
             </div>
             <div class="d_ideais">
-              <div>Dispositivos Ideais:<span>7</span></div>
+              <div>Dispositivos Ideais:<span id="qtd_dispositivo_ideal">0</span></div>
               <div>(Acima da média estipulada)</div>
             </div>
           </div>

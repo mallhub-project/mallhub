@@ -2,22 +2,7 @@ let proximaAtualizacao;
 
 window.onload = obterDadosGrafico(1);
 
-
-
-// O gráfico é construído com três funções:
-// 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-// 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-// 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-// Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-// para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-// A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-//     Para ajustar o "select", ajuste o comando sql em src/models
 function obterDadosGrafico(id_shopping) {
-
-
   if (proximaAtualizacao != undefined) {
     clearTimeout(proximaAtualizacao);
   }
@@ -38,17 +23,8 @@ function obterDadosGrafico(id_shopping) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
 }
-// Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-// Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-// A função *plotarGrafico* também invoca a função *atualizarGrafico*
 
 function plotarGrafico(resposta, id_shopping) {
-  console.log('iniciando plotagem do gráfico...');
-  
-
-
-
-
   const labels = [
     '',
     '',
@@ -163,11 +139,6 @@ function plotarGrafico(resposta, id_shopping) {
   setTimeout(() => atualizarGrafico(id_shopping, data, myChart), 5000);
 }
 
-// Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-// buscando a última medida inserida em tabela contendo as capturas, 
-
-//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-//     Para ajustar o "select", ajuste o comando sql em src/models
 function atualizarGrafico(id_shopping, data, myChart) {
   console.log(myChart)
   
