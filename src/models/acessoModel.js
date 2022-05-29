@@ -3,10 +3,9 @@ var database = require("../database/config")
 async function cadastrar(nome, email, cpf, senha, cargo, fk_superior, fk_shopping) {
     var instrucao = `
         INSERT INTO usuario (nome, email, cpf, senha, cargo, fk_superior, fk_shopping) 
-        VALUES ('${nome}', '${email}', '${cpf}', '${senha}', '${cargo}', '${fk_superior}', '${fk_shopping}');
+        VALUES ('${nome}', '${email}', '${cpf}', '${senha}', '${cargo}', ${fk_superior}, ${fk_shopping});
     `;
     await database.executar(instrucao);
-    return cadastroUsuario(nome, email, cpf, senha, cargo, fk_superior, fk_shopping)
 }
 
 function listar(id_shopping) {

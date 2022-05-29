@@ -32,7 +32,10 @@ body {
     filter: invert(100%);
 }
 
-.inicioIcon, .dispositivoIcon, .perfilIcon, .acessoIcon {
+.inicioIcon,
+.dispositivoIcon,
+.perfilIcon,
+.acessoIcon {
     margin-left: 10px;
 }
 
@@ -136,8 +139,8 @@ body {
     overflow-y: auto;
 }
 
-.meio::-webkit-scrollbar { 
-	display: none;
+.meio::-webkit-scrollbar {
+    display: none;
 }
 
 /*   navbar lateral   */
@@ -165,8 +168,8 @@ body {
 }
 
 .loggout {
-   display: flex;
-   padding: 10px;
+    display: flex;
+    padding: 10px;
 }
 
 .painel img {
@@ -220,7 +223,9 @@ body {
     align-items: center;
 }
 
-.d_alerta div:last-child, .d_ideais div:last-child, .d_ativos div:last-child {
+.d_alerta div:last-child,
+.d_ideais div:last-child,
+.d_ativos div:last-child {
     font-size: 13px;
     font-weight: 500;
     margin-top: 5px;
@@ -323,7 +328,7 @@ body {
     font-size: 25px;
 }
 
-.botaoNewAcess{
+.botaoNewAcess {
     display: flex;
     justify-content: flex-end;
     margin-left: 600px;
@@ -339,7 +344,9 @@ body {
     width: 233px;
     cursor: pointer;
 }
-#botao_salvarDispositivo, #botao_salvarDispositivo_editar {
+
+#botao_salvarDispositivo,
+#botao_salvarDispositivo_editar {
     font-weight: 700;
     background-color: #000;
     border-radius: 15px;
@@ -348,11 +355,13 @@ body {
     width: 233px;
     cursor: pointer;
 }
+
 #salvar_novo_disp {
     border: none;
     display: flex;
     justify-content: flex-end;
 }
+
 .dash_novo_dispositivo {
     border: #d7d7d7 1px solid;
     border-radius: 15px;
@@ -370,13 +379,15 @@ body {
     margin-top: 20px;
 }
 
-.dash_p, .dash_p_dispositivo {
+.dash_p,
+.dash_p_dispositivo {
     margin: 0 20px;
     padding-top: 10px;
     color: black;
 }
 
-.dash_p span, .dash_p_dispositivo span {
+.dash_p span,
+.dash_p_dispositivo span {
     font-weight: 400;
 }
 
@@ -419,7 +430,11 @@ body {
     margin: 0 5px;
 }
 
-.dash_input_info, #localidadesDispositivo, #setorDispositivo, #localidadesDispositivo_editar, #setor_localidade_select {
+.dash_input_info,
+#localidadesDispositivo,
+#setorDispositivo,
+#localidadesDispositivo_editar,
+#setor_localidade_select {
     display: flex;
     min-height: 30px;
     justify-content: space-between;
@@ -449,7 +464,10 @@ body {
     border-radius: 10px;
 }
 
-#modalNovoDispositivo, #modalEditarDispositivo, #modalCriarSetor, #modalCriarLocalidade {
+#modalNovoDispositivo,
+#modalEditarDispositivo,
+#modalCriarSetor,
+#modalCriarLocalidade {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -463,12 +481,14 @@ body {
     border-radius: 10px;
 }
 
-#modalNovoDispositivo .box, #modalEditarDispositivo .box {
+#modalNovoDispositivo .box,
+#modalEditarDispositivo .box {
     width: 100%;
     height: 100%;
 }
 
-#modalNovoDispositivo .buttonClose, #modalEditarDispositivo .buttonClose {
+#modalNovoDispositivo .buttonClose,
+#modalEditarDispositivo .buttonClose {
     font-size: 20px;
     cursor: pointer;
     margin-left: auto;
@@ -488,15 +508,30 @@ body {
     border-radius: 10px;
 }
 
-#modalNovoAcesso.box {
-    width: 100%;
+#modalNovoAcesso.box,
+#modalNovoAcesso .box input {
+    width: 30vw;
     height: 100%;
 }
 
 #modalNovoAcesso .buttonClose {
     font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
     margin-left: auto;
+    background-color: transparent;
+    border: 0;
+}
+
+#botao_salvarAcesso {
+    font-weight: 700;
+    background-color: #000;
+    border-radius: 15px;
+    border-color: #000;
+    color: #fff;
+    height: 40px;
+    width: 233px;
+    cursor: pointer;
 }
 
 /* acessos */
