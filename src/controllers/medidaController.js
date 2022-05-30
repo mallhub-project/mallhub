@@ -40,8 +40,30 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 
+function buscarMedidasPorMes(req, res) {
+    var id_shopping = req.query.idShopping;
+    var data_Inicial = req.query.dataInicial;
+    var data_final = req.query.dataFinal
+
+    console.log(id_shopping, data_Inicial, data_final)
+
+    medidaModel.buscarMedidasPorMes(id_shopping, data_Inicial, data_final)
+    .then(function (resultado) {
+        console.log(resultado)
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
-
+    buscarMedidasEmTempoReal,
+    buscarMedidasPorMes
 }

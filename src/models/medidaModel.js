@@ -39,14 +39,29 @@ function buscarMedidasEmTempoReal(id_shopping) {
     where id_shopping = ${id_shopping} and chave > 0 group by dispositivo.id_dispositivo;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return 
+        return
     }
 
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedidasPorMes(id_shopping, data_inicial, data_final) {
+    var instrucaoSql = `
+    SELECT shopping.nome_fantasia, count(evento.chave) as 'TotalPessoas', 
+    date_format(evento.data_hora, '%d/%c/%Y') as 'Data', date_format(evento.data_hora, '%H:00') as 'hora' from shopping 
+    join setor on id_shopping = fk_shopping
+    join localidade on id_setor = fk_setor
+    join dispositivo on id_localidade = fk_localidade
+    join evento on id_dispositivo = fk_dispositivo
+    where id_shopping = ${id_shopping} and
+    evento.data_hora between '${data_inicial}' and '${data_final}';
+    `
     return database.executar(instrucaoSql);
 }
 
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarMedidasPorMes
 }
